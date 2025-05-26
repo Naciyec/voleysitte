@@ -295,6 +295,493 @@
         .social-icon:hover {
             transform: scale(1.2);
         }
+        <!-- CHATBOT CSS - Bu kısmı <style> taglarının içine, diğer CSS'lerin sonuna ekleyin -->
+<style>
+/* Chatbot Stilleri */
+.chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.chatbot-toggle {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #050063, #006400);
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    color: white;
+    font-size: 24px;
+}
+
+.chatbot-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.chatbot-window {
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    width: 350px;
+    height: 500px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    animation: chatbotSlideIn 0.3s ease-out;
+}
+
+@keyframes chatbotSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.chatbot-header {
+    background: linear-gradient(135deg, #050063, #006400);
+    color: white;
+    padding: 15px;
+    text-align: center;
+    position: relative;
+}
+
+.chatbot-header h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.chatbot-header .close-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chatbot-header .close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.chatbot-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background: #f8f9fa;
+}
+
+.message {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: flex-start;
+    animation: messageSlideIn 0.3s ease-out;
+}
+
+@keyframes messageSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.message.user {
+    flex-direction: row-reverse;
+}
+
+.message-content {
+    max-width: 70%;
+    padding: 10px 15px;
+    border-radius: 18px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.message.bot .message-content {
+    background: white;
+    color: #333;
+    border: 1px solid #e0e0e0;
+    margin-left: 10px;
+}
+
+.message.user .message-content {
+    background: #050063;
+    color: white;
+    margin-right: 10px;
+}
+
+.message-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.message.bot .message-avatar {
+    background: #006400;
+    color: white;
+}
+
+.message.user .message-avatar {
+    background: #050063;
+    color: white;
+}
+
+.chatbot-input {
+    padding: 15px;
+    border-top: 1px solid #e0e0e0;
+    background: white;
+}
+
+.input-container {
+    display: flex;
+    gap: 10px;
+}
+
+.chatbot-input input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    outline: none;
+    font-size: 14px;
+}
+
+.chatbot-input input:focus {
+    border-color: #050063;
+    box-shadow: 0 0 5px rgba(5, 0, 99, 0.3);
+}
+
+.send-btn {
+    width: 40px;
+    height: 40px;
+    background: #050063;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+}
+
+.send-btn:hover {
+    background: #0a0a7a;
+}
+
+.quick-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.quick-btn {
+    padding: 6px 12px;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.quick-btn:hover {
+    background: #050063;
+    color: white;
+    border-color: #050063;
+}
+
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 15px;
+    background: white;
+    border-radius: 18px;
+    margin-left: 40px;
+    margin-bottom: 15px;
+    border: 1px solid #e0e0e0;
+}
+
+.typing-dot {
+    width: 6px;
+    height: 6px;
+    background: #999;
+    border-radius: 50%;
+    animation: typingBounce 1.4s infinite;
+}
+
+.typing-dot:nth-child(1) { animation-delay: 0ms; }
+.typing-dot:nth-child(2) { animation-delay: 200ms; }
+.typing-dot:nth-child(3) { animation-delay: 400ms; }
+
+@keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-10px); }
+}
+
+/* Mobil uyumluluk */
+@media (max-width: 768px) {
+    .chatbot-window {
+        width: 300px;
+        height: 450px;
+    }
+    
+    .chatbot-container {
+        bottom: 15px;
+        right: 15px;
+    }
+}
+</style>
+
+<!-- CHATBOT HTML - Bu kısmı </body> tagından hemen önce ekleyin -->
+<div class="chatbot-container">
+    <button class="chatbot-toggle" id="chatbotToggle">
+        💬
+    </button>
+    
+    <div class="chatbot-window" id="chatbotWindow">
+        <div class="chatbot-header">
+            <h3>🏐 Voleybol Asistanı</h3>
+            <button class="close-btn" id="chatbotClose">×</button>
+        </div>
+        
+        <div class="chatbot-messages" id="chatbotMessages">
+            <div class="message bot">
+                <div class="message-avatar">🏐</div>
+                <div class="message-content">
+                    Merhaba! Voleybol Türkiye asistanınızım. Size nasıl yardımcı olabilirim?
+                </div>
+            </div>
+            <div class="quick-buttons">
+                <button class="quick-btn" data-message="Bugünkü maçlar">Bugünkü Maçlar</button>
+                <button class="quick-btn" data-message="Fikstür">Fikstür</button>
+                <button class="quick-btn" data-message="Son haberler">Son Haberler</button>
+                <button class="quick-btn" data-message="Şampiyonlar">Şampiyonlar</button>
+            </div>
+        </div>
+        
+        <div class="chatbot-input">
+            <div class="input-container">
+                <input type="text" id="chatbotInput" placeholder="Mesajınızı yazın...">
+                <button class="send-btn" id="chatbotSend">→</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CHATBOT JAVASCRIPT - Bu kısmı mevcut JavaScript kodunuzun sonuna ekleyin -->
+<script>
+class VolleyballChatbot {
+    constructor() {
+        this.isOpen = false;
+        this.responses = {
+            'merhaba': 'Merhaba! Voleybol dünyasına hoş geldiniz! Size nasıl yardımcı olabilirim?',
+            'selam': 'Selam! Ben voleybol asistanınızım. Sorularınızı bekliyorum!',
+            'bugünkü maçlar': 'Bugün 20 Mart 2025 tarihinde şu maçlar var:\n• VakıfBank vs Eczacıbaşı Dynavit (19:00)\n• Halkbank vs Ziraat Bankkart (17:30)',
+            'fikstür': 'Yaklaşan maçlar:\n• 20 Mart: VakıfBank vs Eczacıbaşı Dynavit\n• 22 Mart: Fenerbahçe HDİ Sigorta vs Galatasaray HDİ Sigorta\nDetaylı fikstür için Fikstür sekmesini ziyaret edebilirsiniz.',
+            'son haberler': 'Son haberler:\n• VakıfBank, Şampiyonlar Ligi yarı finalinde!\n• Fenerbahçe Medicana, Kuzeyboru karşısında 3-1 galip geldi\n• Eczacıbaşı Dynavit, Ferhat Akbaş ile yollarını ayırdı',
+            'şampiyonlar': 'Son şampiyonlar:\n• Sultanlar Ligi 2024: Fenerbahçe Opet\n• Efeler Ligi 2024: Halkbank\n• CEV Şampiyonlar Ligi 2023: VakıfBank',
+            'vakıfbank': 'VakıfBank, Türk voleybolunun en başarılı takımlarından biri. Şampiyonlar Liginde yarı finale yükseldi!',
+            'fenerbahçe': 'Fenerbahçe Opet, Sultanlar Liginin son şampiyonu. Hem kadın hem erkek takımları mücadele ediyor.',
+            'eczacıbaşı': 'Eczacıbaşı Dynavit, Sultanlar Liginin köklü takımlarından. Yakın zamanda antrenör değişikliği yaşadı.',
+            'galatasaray': 'Galatasaray, hem Sultanlar hem Efeler Liginde mücadele eden başarılı kulüp.',
+            'halkbank': 'Halkbank, Efeler Liginin 2024 şampiyonu. Erkek voleybolunun güçlü takımlarından.',
+            'teşekkürler': 'Rica ederim! Başka sorularınız varsa çekinmeden sorabilirsiniz.',
+            'teşekkür': 'Ne demek! Size yardımcı olmaktan mutluluk duyuyorum.',
+            'iyi günler': 'Size de iyi günler! Voleybol sevgisiyle!',
+            'görüşürüz': 'Görüşmek üzere! Voleybol haberlerini takip etmeyi unutmayın!',
+            'yardım': 'Size şu konularda yardımcı olabilirim:\n• Maç fikstürü ve sonuçları\n• Takım bilgileri\n• Son haberler\n• Şampiyon takımlar\n• Genel voleybol bilgileri'
+        };
+        
+        this.initializeEventListeners();
+        this.addWelcomeMessage();
+    }
+    
+    initializeEventListeners() {
+        const toggle = document.getElementById('chatbotToggle');
+        const close = document.getElementById('chatbotClose');
+        const send = document.getElementById('chatbotSend');
+        const input = document.getElementById('chatbotInput');
+        
+        toggle.addEventListener('click', () => this.toggleChatbot());
+        close.addEventListener('click', () => this.closeChatbot());
+        send.addEventListener('click', () => this.sendMessage());
+        
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                this.sendMessage();
+            }
+        });
+        
+        // Hızlı butonlar için event listener
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('quick-btn')) {
+                const message = e.target.getAttribute('data-message');
+                this.sendMessage(message);
+            }
+        });
+    }
+    
+    toggleChatbot() {
+        const window = document.getElementById('chatbotWindow');
+        this.isOpen = !this.isOpen;
+        
+        if (this.isOpen) {
+            window.style.display = 'flex';
+            document.getElementById('chatbotInput').focus();
+        } else {
+            window.style.display = 'none';
+        }
+    }
+    
+    closeChatbot() {
+        const window = document.getElementById('chatbotWindow');
+        window.style.display = 'none';
+        this.isOpen = false;
+    }
+    
+    sendMessage(customMessage = null) {
+        const input = document.getElementById('chatbotInput');
+        const message = customMessage || input.value.trim();
+        
+        if (!message) return;
+        
+        this.addMessage(message, 'user');
+        
+        if (!customMessage) {
+            input.value = '';
+        }
+        
+        // Yazma göstergesi ekle
+        this.showTypingIndicator();
+        
+        // Bot yanıtını gecikme ile gönder
+        setTimeout(() => {
+            this.hideTypingIndicator();
+            const response = this.generateResponse(message);
+            this.addMessage(response, 'bot');
+        }, 1000 + Math.random() * 1000);
+    }
+    
+    addMessage(text, sender) {
+        const messagesContainer = document.getElementById('chatbotMessages');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${sender}`;
+        
+        const avatar = document.createElement('div');
+        avatar.className = 'message-avatar';
+        avatar.textContent = sender === 'bot' ? '🏐' : '👤';
+        
+        const content = document.createElement('div');
+        content.className = 'message-content';
+        content.textContent = text;
+        
+        messageDiv.appendChild(avatar);
+        messageDiv.appendChild(content);
+        messagesContainer.appendChild(messageDiv);
+        
+        // Scroll to bottom
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+    
+    showTypingIndicator() {
+        const messagesContainer = document.getElementById('chatbotMessages');
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'typing-indicator';
+        typingDiv.id = 'typingIndicator';
+        
+        for (let i = 0; i < 3; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'typing-dot';
+            typingDiv.appendChild(dot);
+        }
+        
+        messagesContainer.appendChild(typingDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+    
+    hideTypingIndicator() {
+        const indicator = document.getElementById('typingIndicator');
+        if (indicator) {
+            indicator.remove();
+        }
+    }
+    
+    generateResponse(message) {
+        const lowerMessage = message.toLowerCase().trim();
+        
+        // Önce tam eşleşme ara
+        if (this.responses[lowerMessage]) {
+            return this.responses[lowerMessage];
+        }
+        
+        // Kısmi eşleşme ara
+        for (const key in this.responses) {
+            if (lowerMessage.includes(key)) {
+                return this.responses[key];
+            }
+        }
+        
+        // Varsayılan yanıtlar
+        const defaultResponses = [
+            'Anlayamadım, ancak size yardımcı olmaya çalışayım. "Yardım" yazarak neler yapabileceğimi öğrenebilirsiniz.',
+            'Bu konuda bilgim yok, ancak voleybol ile ilgili başka sorularınızı yanıtlayabilirim.',
+            'Sorunuzu anlayamadım. Lütfen daha açık bir şekilde sorabilir misiniz? Voleybol hakkında sorular sorabilirsiniz.',
+            'Bu konuda size yardımcı olamıyorum, ancak maçlar, takımlar ve haberler hakkında bilgi verebilirim.'
+        ];
+        
+        return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+    }
+    
+    addWelcomeMessage() {
+        // İlk mesaj zaten HTML'de var, bu fonksiyon gelecekte kullanılabilir
+    }
+}
+
+// Chatbot'u başlat
+document.addEventListener('DOMContentLoaded', function() {
+    // Mevcut kodlar...
+    
+    // Chatbot'u initialize et
+    new VolleyballChatbot();
+});
+</script>
     </style>
 </head>
 <body>
