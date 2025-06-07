@@ -441,6 +441,8 @@
     }
 }
 
+}
+
         
 </style>
 
@@ -767,7 +769,7 @@
         <p>&copy; 2025 Voleybol Türkiye. Tüm hakları saklıdır.</p>
         <p>Bu sitedeki bilgiler bilgilendirme amaçlıdır. Resmi sonuçlar için lütfen TVF'nin resmi sitesini ziyaret ediniz.</p>
     </footer>
-    <button class="ai-chat-toggle" id="aiChatToggle">🤖</button>
+<button class="ai-chat-toggle" id="aiChatToggle">🤖</button>
 
 <div class="ai-chat-container" id="aiChatContainer">
     <div class="ai-chat-header">
@@ -890,7 +892,7 @@
                 // Başarı durumunu bildir
                 alert("Mesajınız başarıyla gönderildi! Teşekkür ederiz.");
             }
-            // AI Chatbot Fonksiyonları
+          // AI Chatbot Fonksiyonları
 const aiChatToggle = document.getElementById('aiChatToggle');
 const aiChatContainer = document.getElementById('aiChatContainer');
 const aiChatClose = document.getElementById('aiChatClose');
@@ -952,92 +954,195 @@ function hideTyping() {
     aiTyping.style.display = 'none';
 }
 
-// AI Yanıt Sistemi
+// AI Yanıt Sistemi - Gelişmiş Versiyon
 function getAIResponse(message) {
     const lowerMessage = message.toLowerCase();
     
-    // Voleybol kuralları
-    if (lowerMessage.includes('kural') || lowerMessage.includes('nasıl oynanır')) {
-        return 'Voleybol 6 kişilik iki takımla oynanır. Topu karşı sahaya düşürmek ve kendi sahanızda düşürmemek amaçtır. Her takım topa en fazla 3 kez dokunabilir.';
-    }
-     if (lowerMessage.includes('kural') || lowerMessage.includes('voleybol nedir')) {
-        return 'Voleybol, iki takım arasında oynanan, topun file üzerinden rakip sahaya gönderilmesi esasına dayanan bir takım sporudur. Her takım sahada 6 oyuncuyla yer alır ve amaç, topu rakip takımın sahasına düşürmek ve rakibin hata yapmasını sağlamaktır.';
+    // Voleybol kuralları ve temel bilgiler
+    if (lowerMessage.includes('kural') || lowerMessage.includes('nasıl oynanır') || lowerMessage.includes('oyun kuralları')) {
+        return 'Voleybol 6 kişilik iki takımla oynanır. Topu karşı sahaya düşürmek amaçtır. Her takım topa en fazla 3 kez dokunabilir. Saha 18x9 metre, file yüksekliği kadınlarda 2.24m, erkeklerde 2.43m\'dir.';
     }
     
-    // Takımlar hakkında
+    if (lowerMessage.includes('puan') || lowerMessage.includes('sayı') || lowerMessage.includes('set')) {
+        return 'Voleybolda maçlar 5 setten oluşur. İlk 4 seti 25 sayıya kadar, 5. seti 15 sayıya kadar oynanır. Seti kazanmak için 2 sayı fark gerekir. 3 set kazanan takım maçı alır.';
+    }
+    
+    // Takımlar - Detaylı bilgiler
     if (lowerMessage.includes('vakıfbank') || lowerMessage.includes('vakıf')) {
-        return 'VakıfBank, Türkiye\'nin en başarılı voleybol takımlarından biridir. Şampiyonlar Ligi\'nde de önemli başarılar elde etmiştir.';
+        return 'VakıfBank, Türkiye\'nin en başarılı voleybol takımıdır. 4 kez CEV Şampiyonlar Ligi kazanmış, dünya klubü seviyesinde de başarılıdır. Giovanni Guidetti gibi deneyimli antrenörlerle çalışmıştır.';
     }
     
     if (lowerMessage.includes('fenerbahçe') || lowerMessage.includes('fener')) {
-        return 'Fenerbahçe, hem kadın hem erkek voleybol takımlarıyla Türk voleybolunun önemli temsilcilerindendir. Son yıllarda büyük başarılar elde etmiştir.';
+        return 'Fenerbahçe, hem Sultanlar hem Efeler Ligi\'nde güçlü takımlara sahiptir. Son yıllarda kadın takımı Fenerbahçe Opet adıyla büyük başarılar elde etti ve şampiyonluklar kazandı.';
     }
     
-    if (lowerMessage.includes('eczacıbaşı')) {
-        return 'Eczacıbaşı Dynavit, Sultanlar Ligi\'nin köklü takımlarından biridir. Güçlü kadrosuyla her sezon şampiyonluk için mücadele eder.';
+    if (lowerMessage.includes('eczacıbaşı') || lowerMessage.includes('tiger')) {
+        return 'Eczacıbaşı Dynavit, köklü geçmişi olan bir takımdır. Giovanni Caprara gibi ünlü antrenörlerle çalışmış, birçok uluslararası başarı elde etmiştir.';
     }
     
-    if (lowerMessage.includes('galatasaray')) {
-        return 'Galatasaray, hem kadın hem erkek voleybol takımlarıyla Türk voleyboluna katkıda bulunmaktadır.';
+    if (lowerMessage.includes('galatasaray') || lowerMessage.includes('cimbom')) {
+        return 'Galatasaray, voleybolda da Türk sporuna katkı sağlamaktadır. Hem kadın hem erkek takımlarıyla ligde mücadele etmektedir.';
     }
     
     if (lowerMessage.includes('halkbank')) {
-        return 'Halkbank, Efeler Ligi\'nin güçlü takımlarından biridir. Erkek voleybolunda önemli başarılar elde etmiştir.';
+        return 'Halkbank, Efeler Ligi\'nin en güçlü takımlarından biridir. Erkek voleybolunda birçok şampiyonluk kazanmış, Avrupa kupalarında da başarılı olmuştur.';
     }
     
-    // Liglerle ilgili
-    if (lowerMessage.includes('sultanlar ligi') || lowerMessage.includes('sultanlar')) {
-        return 'Sultanlar Ligi, Türkiye\'nin kadın voleybol liginin adıdır. VakıfBank, Fenerbahçe, Eczacıbaşı gibi güçlü takımlar bu ligde mücadele eder.';
+    // Pozisyonlar ve teknik konular
+    if (lowerMessage.includes('pozisyon') || lowerMessage.includes('mevki') || lowerMessage.includes('oyuncu')) {
+        return 'Voleybol pozisyonları: Pasör (takımın beynı), Smaçör (saldırı oyuncusu), Orta Oyuncu (blok ve hızlı saldırı), Çapraz (güçlü smaçör), Libero (savunma uzmanı, servis atamaz).';
     }
     
-    if (lowerMessage.includes('efeler ligi') || lowerMessage.includes('efeler')) {
-        return 'Efeler Ligi, Türkiye\'nin erkek voleybol liginin adıdır. Halkbank, Fenerbahçe, Galatasaray gibi takımlar bu ligde yer alır.';
+    if (lowerMessage.includes('smaç') || lowerMessage.includes('atak')) {
+        return 'Smaç, voleybolun en spektaküler hareketidir. Oyuncu zıplayarak topu güçlü şekilde karşı sahaya vurur. İyi bir smaç için timing, güç ve teknik gereklidir.';
     }
     
-    // Maç sonuçları
-    if (lowerMessage.includes('maç') || lowerMessage.includes('sonuç') || lowerMessage.includes('skor')) {
-        return 'Güncel maç sonuçları için ana sayfadaki "Son Haberler" bölümünü kontrol edebilirsiniz. Ayrıca Fikstür sekmesinden gelecek maçları görebilirsiniz.';
+    if (lowerMessage.includes('blok') || lowerMessage.includes('bloklama')) {
+        return 'Blok, karşı takımın smaçını durdurmak için filede yapılan savunma hareketidir. Genellikle 2-3 oyuncu birlikte blok yapar.';
     }
     
-    // Şampiyonlar
-    if (lowerMessage.includes('şampiyon') || lowerMessage.includes('kazanan')) {
-        return '2024 sezonunda Sultanlar Ligi\'ni Fenerbahçe Opet, Efeler Ligi\'ni ise Halkbank kazanmıştır. Detaylı bilgi için Şampiyonlar sekmesini ziyaret edebilirsiniz.';
+    if (lowerMessage.includes('servis') || lowerMessage.includes('atış')) {
+        return 'Servis, oyunu başlatan harekettir. Alt servis, üst servis, jump servis gibi çeşitleri vardır. Güçlü servis büyük avantaj sağlar.';
+    }
+    
+    if (lowerMessage.includes('libero')) {
+        return 'Libero, savunma uzmanı oyuncudur. Farklı renk forma giyer, servis atamaz ve ön bölgede smaç yapamaz. Sadece arka bölgede oynar.';
+    }
+    
+    // Liglerle ilgili detaylı bilgiler
+    if (lowerMessage.includes('sultanlar ligi') || lowerMessage.includes('kadın ligi')) {
+        return 'Sultanlar Ligi, Türkiye\'nin en üst düzey kadın voleybol ligidir. 12 takım katılır, playoff sistemiyle şampiyon belirlenir. VakıfBank, Fenerbahçe, Eczacıbaşı en güçlü takımlardır.';
+    }
+    
+    if (lowerMessage.includes('efeler ligi') || lowerMessage.includes('erkek ligi')) {
+        return 'Efeler Ligi, Türkiye\'nin en üst düzey erkek voleybol ligidir. Halkbank, Fenerbahçe, Galatasaray gibi güçlü takımlar yer alır.';
+    }
+    
+    // Şampiyonlar ve başarılar
+    if (lowerMessage.includes('şampiyon') || lowerMessage.includes('kazanan') || lowerMessage.includes('başarı')) {
+        return '2024 sezonunda Sultanlar Ligi şampiyonu Fenerbahçe Opet, Efeler Ligi şampiyonu Halkbank oldu. Türk takımları Avrupa\'da da başarılıdır.';
+    }
+    
+    if (lowerMessage.includes('avrupa') || lowerMessage.includes('şampiyonlar ligi') || lowerMessage.includes('cev')) {
+        return 'CEV Şampiyonlar Ligi, Avrupa\'nın en prestijli voleybol turnuvasıdır. VakıfBank bu turnuvayı 4 kez kazanarak tarihe geçmiştir.';
     }
     
     // Milli takım
     if (lowerMessage.includes('milli takım') || lowerMessage.includes('filenin sultanları') || lowerMessage.includes('türkiye')) {
-        return 'Filenin Sultanları (Kadın Milli Takım) ve Erkek Milli Takımımız uluslararası müsabakalarda Türkiye\'yi temsil eder. Dünya şampiyonası elemelerine katılacaklar.';
+        return 'Filenin Sultanları (Kadın Milli Takım) dünya voleybolunun güçlü takımlarındandır. Olimpiyatlar, Dünya Şampiyonası ve Avrupa Şampiyonası\'nda madalyalar kazanmıştır.';
     }
     
-    // Pozisyonlar
-    if (lowerMessage.includes('pozisyon') || lowerMessage.includes('mevki')) {
-        return 'Voleybolda temel pozisyonlar: Pasör (Setter), Smaçör (Outside Hitter), Orta Oyuncu (Middle Blocker), Çapraz (Opposite), Libero. Her pozisyonun kendine özgü görevleri vardır.';
+    if (lowerMessage.includes('olimpiyat') || lowerMessage.includes('olimpik')) {
+        return 'Türk voleybol milli takımları olimpiyatlarda önemli başarılar elde etmiştir. Özellikle kadın milli takımı birçok kez olimpiyatlara katılmıştır.';
     }
     
-    // Genel yardım
-    if (lowerMessage.includes('yardım') || lowerMessage.includes('ne sorabilir')) {
-        return 'Size voleybol kuralları, takımlar, maç sonuçları, şampiyonlar, milli takım ve voleybol hakkında genel bilgiler konusunda yardımcı olabilirim. Ne merak ediyorsunuz?';
+    // Antrenörler ve oyuncular
+    if (lowerMessage.includes('antrenör') || lowerMessage.includes('coach')) {
+        return 'Türk voleybolunda Giovanni Guidetti, Giovanni Caprara, Marco Aurelio Motta gibi dünyaca ünlü antrenörler görev yapmıştır.';
     }
     
-    // Selamlama
-    if (lowerMessage.includes('merhaba') || lowerMessage.includes('selam') || lowerMessage.includes('hey')) {
-        return 'Merhaba! Voleybol dünyasına hoş geldiniz. Size nasıl yardımcı olabilirim?';
+    if (lowerMessage.includes('oyuncu') || lowerMessage.includes('yıldız')) {
+        return 'Türk voleybolunun yıldız oyuncuları arasında Gözde Kırdar, Neslihan Demir, Ebrar Karakurt, Eda Erdem gibi isimler yer almaktadır.';
     }
     
-    // Teşekkür
-    if (lowerMessage.includes('teşekkür') || lowerMessage.includes('sağol') || lowerMessage.includes('thanks')) {
-        return 'Rica ederim! Başka sorularınız varsa çekinmeden sorabilirsiniz.';
+    // Teknik terimler
+    if (lowerMessage.includes('dig') || lowerMessage.includes('savunma')) {
+        return 'Dig, karşı takımın smaçını kurtarma hareketidir. Libero ve diğer oyuncular dig yaparak topu oyunda tutar.';
     }
     
-    // Varsayılan yanıt
-    const defaultResponses = [
-        'Bu konuda size yardımcı olmaya çalışayım. Biraz daha detaylı sorabilir misiniz?',
-        'Voleybol hakkında başka bir şey sormak ister misiniz? Takımlar, kurallar, maçlar gibi konularda size yardımcı olabilirim.',
-        'Üzgünüm, bu konuda yeterli bilgim yok. Voleybol, takımlar veya maçlarla ilgili başka bir şey sorabilirsiniz.',
-        'Size daha iyi yardımcı olabilmek için sorunuzu biraz daha açık sorabilir misiniz?'
+    if (lowerMessage.includes('set') || lowerMessage.includes('pas')) {
+        return 'Set (pas), smaçörlerin vurabileceği şekilde topu ayarlama hareketidir. Pasör bu işi yapar ve takımın oyun kurucu beynidir.';
+    }
+    
+    // Tesis ve sahalar
+    if (lowerMessage.includes('saha') || lowerMessage.includes('salon') || lowerMessage.includes('tesis')) {
+        return 'Voleybol sahası 18x9 metre boyutlarındadır. TVF Başkent Salonu, VakıfBank Spor Sarayı gibi modern tesisler bulunmaktadır.';
+    }
+    
+    // Hakem ve kurallar
+    if (lowerMessage.includes('hakem') || lowerMessage.includes('faul') || lowerMessage.includes('ihlal')) {
+        return 'Voleybolda 1. hakem file üstünde, 2. hakem yanda pozisyon alır. Çizgi hakemi ve skor hakemi de vardır. Net dokunması, çift dokunma gibi fauller vardır.';
+    }
+    
+    // Tarih ve gelişim
+    if (lowerMessage.includes('tarih') || lowerMessage.includes('geçmiş') || lowerMessage.includes('gelişim')) {
+        return 'Voleybol 1895\'te William Morgan tarafından icat edildi. Türkiye\'de 1960\'lardan beri popülerdir ve büyük gelişim göstermiştir.';
+    }
+    
+    // Fiziksel özellikler
+    if (lowerMessage.includes('boy') || lowerMessage.includes('fizik') || lowerMessage.includes('kondisyon')) {
+        return 'Voleybolda boy avantajı önemlidir ama tek başına yeterli değildir. Çeviklik, refleks, koordinasyon ve takım oyunu da çok önemlidir.';
+    }
+    
+    // Antrenman ve gelişim
+    if (lowerMessage.includes('antrenman') || lowerMessage.includes('çalışma') || lowerMessage.includes('gelişme')) {
+        return 'Voleybol antrenmanları teknik, taktik, fiziksel ve mental hazırlığı içerir. Düzenli antrenmanla beceriler geliştirilir.';
+    }
+    
+    // Selamlama ve nezaket
+    if (lowerMessage.includes('merhaba') || lowerMessage.includes('selam') || lowerMessage.includes('hey') || lowerMessage.includes('naber')) {
+        return 'Merhaba! Voleybol dünyasına hoş geldiniz! Size voleybol hakkında her konuda yardımcı olabilirim. Ne öğrenmek istiyorsunuz?';
+    }
+    
+    if (lowerMessage.includes('teşekkür') || lowerMessage.includes('sağol') || lowerMessage.includes('thanks') || lowerMessage.includes('eyvallah')) {
+        return 'Rica ederim! Voleybol hakkında daha fazla bilgi almak isterseniz, her zaman buradayım. Başka sorularınız var mı?';
+    }
+    
+    if (lowerMessage.includes('güle güle') || lowerMessage.includes('hoşça kal') || lowerMessage.includes('bye')) {
+        return 'Hoşça kalın! Voleybol hakkında merak ettikleriniz olduğunda tekrar gelin. İyi günler!';
+    }
+    
+    // Yardım ve genel bilgi
+    if (lowerMessage.includes('yardım') || lowerMessage.includes('ne sorabilir') || lowerMessage.includes('neler bil')) {
+        return 'Size şu konularda yardımcı olabilirim: Voleybol kuralları, takımlar, oyuncular, pozisyonlar, teknik bilgiler, maç sonuçları, şampiyonlar, milli takım, antrenman, Avrupa kupaları ve daha fazlası!';
+    }
+    
+    // Kelime analizi ile akıllı yanıtlar
+    if (lowerMessage.includes('hangi') || lowerMessage.includes('kim') || lowerMessage.includes('ne') || lowerMessage.includes('nasıl') || lowerMessage.includes('neden') || lowerMessage.includes('nerede')) {
+        if (lowerMessage.includes('takım')) {
+            return 'Türkiye\'de Sultanlar Ligi\'nde VakıfBank, Fenerbahçe, Eczacıbaşı, Galatasaray gibi güçlü takımlar var. Efeler Ligi\'nde ise Halkbank, Fenerbahçe, Galatasaray öne çıkıyor.';
+        } else if (lowerMessage.includes('oyun')) {
+            return 'Voleybol heyecan dolu bir takım sporudur. 6 kişilik takımlar halinde oynanır ve amaç topu karşı sahaya düşürmektir.';
+        } else {
+            return 'Bu konuda size yardımcı olmaya çalışayım. Voleybol ile ilgili daha spesifik bir soru sorabilirsiniz. Takımlar, kurallar, oyuncular hakkında ne öğrenmek istiyorsunuz?';
+        }
+    }
+    
+    // Diğer spor dalları ile karşılaştırma
+    if (lowerMessage.includes('basketbol') || lowerMessage.includes('futbol') || lowerMessage.includes('tenis')) {
+        return 'Voleybol diğer sporlardan farklı olarak elle oynanan, net üzerinden oynanan ve sürekli oyun akışı olan bir spordur. Takım oyunu çok önemlidir.';
+    }
+    
+    // Yaş ve kategori
+    if (lowerMessage.includes('yaş') || lowerMessage.includes('kategori') || lowerMessage.includes('genç')) {
+        return 'Voleybol her yaşta oynanabilir. Gençler, büyükler, veteranlar kategorileri vardır. Mini voleybol ile küçük yaşlarda başlanabilir.';
+    }
+    
+    // Malzeme ve ekipman
+    if (lowerMessage.includes('malzeme') || lowerMessage.includes('top') || lowerMessage.includes('file') || lowerMessage.includes('ekipman')) {
+        return 'Voleybol için: Voleybol topu (çevresi 65-67 cm), file (kadınlarda 2.24m, erkeklerde 2.43m), voleybol ayakkabısı ve uygun kıyafet gerekir.';
+    }
+    
+    // Avantaj ve faydalar
+    if (lowerMessage.includes('fayda') || lowerMessage.includes('avantaj') || lowerMessage.includes('yarar')) {
+        return 'Voleybol oynamak: Koordinasyonu geliştirir, takım ruhunu güçlendirir, refleksleri hızlandırır, alt ve üst vücut kaslarını çalıştırır, sosyalleşmeyi sağlar.';
+    }
+    
+    // Zorlukllar ve dezavantajlar
+    if (lowerMessage.includes('zor') || lowerMessage.includes('dezavantaj') || lowerMessage.includes('problem')) {
+        return 'Voleybol öğrenmesi kolay ama ustalaşması zor bir spordur. İyi timing, koordinasyon ve takım oyunu gerektirir. Düzenli antrenmanla bu zorluklar aşılır.';
+    }
+    
+    // Gelişmiş varsayılan yanıtlar - Her durumda mantıklı cevap ver
+    const smartResponses = [
+        `"${message}" hakkında size şunu söyleyebilirim: Voleybol çok geniş bir konu! Bu konuyla ilgili daha spesifik bir şey sormak isterseniz, detaylı bilgi verebilirim.`,
+        `Anlıyorum, "${message}" konusunda bilgi arıyorsunuz. Voleybol dünyasında bunun karşılığını bulalım. Hangi açıdan yaklaşmak istersiniz?`,
+        `"${message}" ile ilgili olarak şu konulardan hangisi daha çok ilginizi çekiyor: Kurallar, takımlar, oyuncular, teknik bilgiler?`,
+        `Bu konu hakkında size yardımcı olmak istiyorum. "${message}" konusunu voleybol açısından değerlendirelim. Daha detaylı sormak ister misiniz?`,
+        `Voleybol dünyasında "${message}" konusu gerçekten önemli. Size bu konuda hangi perspektiften yardımcı olabilirim? Teknik mi, takım bilgileri mi?`
     ];
     
-    return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+    return smartResponses[Math.floor(Math.random() * smartResponses.length)];
 }
 
         });
