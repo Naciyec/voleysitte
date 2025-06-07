@@ -886,7 +886,35 @@
         <p>&copy; 2025 Voleybol Türkiye. Tüm hakları saklıdır.</p>
         <p>Bu sitedeki bilgiler bilgilendirme amaçlıdır. Resmi sonuçlar için lütfen TVF'nin resmi sitesini ziyaret ediniz.</p>
     </footer>
+<button class="ai-chat-toggle" id="aiChatToggle">🤖</button>
 
+<div class="ai-chat-container" id="aiChatContainer">
+    <div class="ai-chat-header">
+        <span class="ai-chat-title">AI Asistan</span>
+        <button class="ai-chat-close" id="aiChatClose">×</button>
+    </div>
+    
+    <div class="ai-chat-messages" id="aiChatMessages">
+        <div class="ai-message bot">
+            Merhaba! Ben gelişmiş AI asistanınızım. Voleybol, spor, teknoloji, eğitim ve daha birçok konuda size yardımcı olabilirim. Ne öğrenmek istiyorsunuz?
+        </div>
+    </div>
+    
+    <div class="ai-quick-buttons">
+        <button class="ai-quick-btn" onclick="sendQuickMessage('Voleybol nedir?')">Voleybol</button>
+        <button class="ai-quick-btn" onclick="sendQuickMessage('Takımlar hakkında')">Takımlar</button>
+        <button class="ai-quick-btn" onclick="sendQuickMessage('Kurallar neler?')">Kurallar</button>
+        <button class="ai-quick-btn" onclick="sendQuickMessage('Yardım')">Yardım</button>
+    </div>
+    
+    <div class="ai-typing" id="aiTyping">AI düşünüyor...</div>
+    <div class="ai-thinking" id="aiThinking"></div>
+    
+    <div class="ai-chat-input-container">
+        <input type="text" class="ai-chat-input" id="aiChatInput" placeholder="Mesajınızı yazın...">
+        <button class="ai-chat-send" id="aiChatSend">Gönder</button>
+    </div>
+</div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
