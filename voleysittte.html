@@ -296,148 +296,265 @@
         .social-icon:hover {
             transform: scale(1.2)
     }
-/* AI Chatbot Stilleri */
+
+/* Gelişmiş AI Chatbot Stilleri */
 .ai-chat-container {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 350px;
-    height: 500px;
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+    width: 400px;
+    height: 600px;
+    background: linear-gradient(145deg, #ffffff, #f8f9fa);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     display: none;
     flex-direction: column;
     z-index: 1000;
     overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .ai-chat-header {
-    background: #050063;
+    background: linear-gradient(135deg, #050063, #0a0a7a);
     color: white;
-    padding: 15px;
+    padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .ai-chat-title {
-    font-weight: bold;
-    font-size: 16px;
+    font-weight: 600;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ai-chat-title::before {
+    content: "🤖";
+    font-size: 20px;
 }
 
 .ai-chat-close {
-    background: none;
+    background: rgba(255, 255, 255, 0.2);
     border: none;
     color: white;
     font-size: 20px;
     cursor: pointer;
-    padding: 0;
-    width: 25px;
-    height: 25px;
+    padding: 5px 10px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.ai-chat-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
 }
 
 .ai-chat-messages {
     flex: 1;
-    padding: 15px;
+    padding: 20px;
     overflow-y: auto;
-    background: #f9f9f9;
+    background: #f8f9fa;
+    position: relative;
+}
+
+.ai-chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ai-chat-messages::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.ai-chat-messages::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
 }
 
 .ai-message {
     margin-bottom: 15px;
-    padding: 10px 15px;
-    border-radius: 10px;
-    max-width: 80%;
+    padding: 12px 16px;
+    border-radius: 18px;
+    max-width: 85%;
     word-wrap: break-word;
+    line-height: 1.4;
+    position: relative;
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .ai-message.user {
-    background: #050063;
+    background: linear-gradient(135deg, #050063, #0a0a7a);
     color: white;
     margin-left: auto;
     text-align: right;
+    border-bottom-right-radius: 5px;
 }
 
 .ai-message.bot {
     background: white;
     color: #333;
-    border: 1px solid #eee;
+    border: 1px solid #e9ecef;
+    margin-right: auto;
+    border-bottom-left-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ai-message.bot::before {
+    content: "🤖";
+    position: absolute;
+    left: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
 }
 
 .ai-chat-input-container {
-    padding: 15px;
-    border-top: 1px solid #eee;
+    padding: 20px;
+    border-top: 1px solid #e9ecef;
     background: white;
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
 
 .ai-chat-input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 20px;
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 25px;
     outline: none;
-    box-sizing: border-box;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.ai-chat-input:focus {
+    border-color: #050063;
+    box-shadow: 0 0 0 3px rgba(5, 0, 99, 0.1);
 }
 
 .ai-chat-send {
-    margin-top: 10px;
-    width: 100%;
-    padding: 10px;
-    background: #050063;
+    padding: 12px 16px;
+    background: linear-gradient(135deg, #050063, #0a0a7a);
     color: white;
     border: none;
-    border-radius: 20px;
+    border-radius: 25px;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    min-width: 60px;
 }
 
 .ai-chat-send:hover {
-    background: #0a0a7a;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(5, 0, 99, 0.3);
 }
 
 .ai-chat-toggle {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 60px;
-    height: 60px;
-    background: #050063;
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #050063, #0a0a7a);
     color: white;
     border: none;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 24px;
-    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+    font-size: 28px;
+    box-shadow: 0 5px 20px rgba(5, 0, 99, 0.3);
     z-index: 999;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.3s ease;
 }
 
 .ai-chat-toggle:hover {
-    background: #0a0a7a;
-    transform: scale(1.1);
+    transform: scale(1.1) rotate(360deg);
+    box-shadow: 0 8px 25px rgba(5, 0, 99, 0.4);
 }
 
 .ai-typing {
     display: none;
     color: #666;
     font-style: italic;
-    padding: 10px 15px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.8);
+    margin: 0 20px;
+    border-radius: 15px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+.ai-thinking {
+    display: none;
+    text-align: center;
+    padding: 10px;
+    color: #666;
+}
+
+.ai-thinking::after {
+    content: "●●●";
+    animation: thinking 1.4s infinite;
+    letter-spacing: 2px;
+}
+
+@keyframes thinking {
+    0%, 20% { opacity: 0.2; }
+    50% { opacity: 1; }
+    100% { opacity: 0.2; }
+}
+
+.ai-quick-buttons {
+    display: flex;
+    gap: 8px;
+    padding: 10px 20px;
+    flex-wrap: wrap;
+}
+
+.ai-quick-btn {
+    background: rgba(5, 0, 99, 0.1);
+    border: 1px solid rgba(5, 0, 99, 0.2);
+    color: #050063;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.ai-quick-btn:hover {
+    background: #050063;
+    color: white;
 }
 
 @media (max-width: 768px) {
     .ai-chat-container {
-        width: 90%;
-        height: 70%;
+        width: 95%;
+        height: 80%;
         bottom: 10px;
-        right: 5%;
+        right: 2.5%;
     }
     
     .ai-chat-toggle {
         bottom: 10px;
         right: 10px;
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
     }
 }
 
@@ -773,23 +890,32 @@
 
 <div class="ai-chat-container" id="aiChatContainer">
     <div class="ai-chat-header">
-        <span class="ai-chat-title">Voleybol Asistanı</span>
+        <span class="ai-chat-title">AI Asistan</span>
         <button class="ai-chat-close" id="aiChatClose">×</button>
     </div>
     
     <div class="ai-chat-messages" id="aiChatMessages">
         <div class="ai-message bot">
-            Merhaba! Ben voleybol asistanınızım. Voleybol, takımlar, maçlar ve diğer konularda size yardımcı olabilirim. Ne öğrenmek istiyorsunuz?
+            Merhaba! Ben gelişmiş AI asistanınızım. Voleybol, spor, teknoloji, eğitim ve daha birçok konuda size yardımcı olabilirim. Ne öğrenmek istiyorsunuz?
         </div>
     </div>
     
-    <div class="ai-typing" id="aiTyping">Yazıyor...</div>
+    <div class="ai-quick-buttons">
+        <button class="ai-quick-btn" onclick="sendQuickMessage('Voleybol nedir?')">Voleybol</button>
+        <button class="ai-quick-btn" onclick="sendQuickMessage('Takımlar hakkında')">Takımlar</button>
+        <button class="ai-quick-btn" onclick="sendQuickMessage('Kurallar neler?')">Kurallar</button>
+        <button class="ai-quick-btn" onclick="sendQuickMessage('Yardım')">Yardım</button>
+    </div>
+    
+    <div class="ai-typing" id="aiTyping">AI düşünüyor...</div>
+    <div class="ai-thinking" id="aiThinking"></div>
     
     <div class="ai-chat-input-container">
         <input type="text" class="ai-chat-input" id="aiChatInput" placeholder="Mesajınızı yazın...">
         <button class="ai-chat-send" id="aiChatSend">Gönder</button>
     </div>
 </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Tab değiştirme fonksiyonu
@@ -892,7 +1018,7 @@
                 // Başarı durumunu bildir
                 alert("Mesajınız başarıyla gönderildi! Teşekkür ederiz.");
             }
-          // AI Chatbot Fonksiyonları
+      // Gelişmiş AI Chatbot Fonksiyonları
 const aiChatToggle = document.getElementById('aiChatToggle');
 const aiChatContainer = document.getElementById('aiChatContainer');
 const aiChatClose = document.getElementById('aiChatClose');
@@ -900,11 +1026,19 @@ const aiChatMessages = document.getElementById('aiChatMessages');
 const aiChatInput = document.getElementById('aiChatInput');
 const aiChatSend = document.getElementById('aiChatSend');
 const aiTyping = document.getElementById('aiTyping');
+const aiThinking = document.getElementById('aiThinking');
+
+// Chatbot hafızası
+let conversationHistory = [];
+let userPreferences = {};
 
 // Chatbot açma/kapama
 aiChatToggle.addEventListener('click', function() {
     aiChatContainer.style.display = aiChatContainer.style.display === 'flex' ? 'none' : 'flex';
     aiChatToggle.style.display = aiChatContainer.style.display === 'flex' ? 'none' : 'flex';
+    if (aiChatContainer.style.display === 'flex') {
+        aiChatInput.focus();
+    }
 });
 
 aiChatClose.addEventListener('click', function() {
@@ -920,6 +1054,12 @@ aiChatInput.addEventListener('keypress', function(e) {
     }
 });
 
+// Hızlı mesaj gönderme
+function sendQuickMessage(message) {
+    aiChatInput.value = message;
+    sendMessage();
+}
+
 function sendMessage() {
     const message = aiChatInput.value.trim();
     if (!message) return;
@@ -928,222 +1068,635 @@ function sendMessage() {
     addMessage(message, 'user');
     aiChatInput.value = '';
     
+    // Konuşma geçmişine ekle
+    conversationHistory.push({type: 'user', message: message, timestamp: new Date()});
+    
     // Bot yanıtını simüle et
     showTyping();
     setTimeout(() => {
         hideTyping();
-        const response = getAIResponse(message);
+        const response = getAdvancedAIResponse(message);
         addMessage(response, 'bot');
+        conversationHistory.push({type: 'bot', message: response, timestamp: new Date()});
     }, 1000 + Math.random() * 2000);
 }
 
 function addMessage(message, sender) {
     const messageDiv = document.createElement('div');
     messageDiv.className = `ai-message ${sender}`;
-    messageDiv.textContent = message;
+    messageDiv.innerHTML = message;
     aiChatMessages.appendChild(messageDiv);
     aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
 }
 
 function showTyping() {
     aiTyping.style.display = 'block';
+    aiThinking.style.display = 'block';
     aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
 }
 
 function hideTyping() {
     aiTyping.style.display = 'none';
+    aiThinking.style.display = 'none';
 }
 
-// AI Yanıt Sistemi - Gelişmiş Versiyon
-function getAIResponse(message) {
+// Gelişmiş AI Yanıt Sistemi
+function getAdvancedAIResponse(message) {
     const lowerMessage = message.toLowerCase();
+    const words = lowerMessage.split(' ');
     
-    // Voleybol kuralları ve temel bilgiler
-    if (lowerMessage.includes('kural') || lowerMessage.includes('nasıl oynanır') || lowerMessage.includes('oyun kuralları')) {
-        return 'Voleybol 6 kişilik iki takımla oynanır. Topu karşı sahaya düşürmek amaçtır. Her takım topa en fazla 3 kez dokunabilir. Saha 18x9 metre, file yüksekliği kadınlarda 2.24m, erkeklerde 2.43m\'dir.';
+    // Voleybol ile ilgili sorular
+    if (containsAny(lowerMessage, ['voleybol nedir', 'voleybol ne', 'voleybol nasıl oynanır', 'voleybol hakkında'])) {
+        return `🏐 <strong>Voleybol Nedir?</strong><br><br>
+        Voleybol, iki takım arasında oynanan bir spordur. Temel özellikler:<br>
+        • 6 kişilik takımlar halinde oynanır<br>
+        • Amaç: Topu karşı sahaya düşürmek<br>
+        • Saha: 18x9 metre boyutlarında<br>
+        • File yüksekliği: Kadınlarda 2.24m, erkeklerde 2.43m<br>
+        • Her takım topa en fazla 3 kez dokunabilir<br><br>
+        Voleybol hem fiziksel hem de zihinsel bir spordur. Hızlı refleksler, takım oyunu ve strateji gerektirir.`;
     }
-    
-    if (lowerMessage.includes('puan') || lowerMessage.includes('sayı') || lowerMessage.includes('set')) {
-        return 'Voleybolda maçlar 5 setten oluşur. İlk 4 seti 25 sayıya kadar, 5. seti 15 sayıya kadar oynanır. Seti kazanmak için 2 sayı fark gerekir. 3 set kazanan takım maçı alır.';
+
+    if (containsAny(lowerMessage, ['voleybol kuralları', 'kural', 'oyun kuralları', 'nasıl oynanır'])) {
+        return `📋 <strong>Voleybol Kuralları</strong><br><br>
+        <strong>Temel Kurallar:</strong><br>
+        • Maç 5 setten oluşur (ilk 3 seti kazanan galip)<br>
+        • İlk 4 set 25 sayıya, 5. set 15 sayıya oynanır<br>
+        • Seti kazanmak için 2 sayı fark gerekir<br>
+        • Her takım topa en fazla 3 kez dokunabilir<br>
+        • Aynı oyuncu üst üste topa dokunamaz<br>
+        • Net altından veya dışından geçen top faut<br>
+        • Servis sırası rotasyonla değişir<br><br>
+        <strong>Faul Durumları:</strong><br>
+        • Net dokunması • Çizgi dışına çıkma • Çift dokunma • 4 dokunma`;
     }
-    
-    // Takımlar - Detaylı bilgiler
-    if (lowerMessage.includes('vakıfbank') || lowerMessage.includes('vakıf')) {
-        return 'VakıfBank, Türkiye\'nin en başarılı voleybol takımıdır. 4 kez CEV Şampiyonlar Ligi kazanmış, dünya klubü seviyesinde de başarılıdır. Giovanni Guidetti gibi deneyimli antrenörlerle çalışmıştır.';
+
+    if (containsAny(lowerMessage, ['pozisyon', 'mevki', 'oyuncu pozisyonu', 'roller'])) {
+        return `⚡ <strong>Voleybol Pozisyonları</strong><br><br>
+        <strong>1. Pasör (Setter):</strong> Takımın beynı, oyunu kurar<br>
+        <strong>2. Smaçör (Outside Hitter):</strong> Ana saldırı oyuncusu<br>
+        <strong>3. Orta Oyuncu (Middle Blocker):</strong> Hızlı atak ve blok<br>
+        <strong>4. Çapraz (Opposite):</strong> Güçlü smaçör, pasörün karşısı<br>
+        <strong>5. Libero:</strong> Savunma uzmanı, farklı renk forma<br>
+        <strong>6. Servis Uzmanı:</strong> Güçlü servis atan oyuncu<br><br>
+        Her pozisyonun kendine özgü sorumlulukları vardır ve takım halinde çalışır.`;
     }
-    
-    if (lowerMessage.includes('fenerbahçe') || lowerMessage.includes('fener')) {
-        return 'Fenerbahçe, hem Sultanlar hem Efeler Ligi\'nde güçlü takımlara sahiptir. Son yıllarda kadın takımı Fenerbahçe Opet adıyla büyük başarılar elde etti ve şampiyonluklar kazandı.';
+
+    // Türk takımları
+    if (containsAny(lowerMessage, ['vakıfbank', 'vakıf', 'vb'])) {
+        return `🏆 <strong>VakıfBank Spor Kulübü</strong><br><br>
+        Türkiye'nin en başarılı voleybol takımıdır!<br><br>
+        <strong>Başarılar:</strong><br>
+        • 4 kez CEV Şampiyonlar Ligi kazandı<br>
+        • Çok sayıda Sultanlar Ligi şampiyonluğu<br>
+        • Dünya Kulüpler Şampiyonası kazandı<br>
+        • FIVB Kulüpler Dünya Şampiyonası winner<br><br>
+        <strong>Özellikler:</strong><br>
+        • Dünya çapında tanınan yıldız oyuncular<br>
+        • Profesyonel altyapı ve antrenman tesisleri<br>
+        • Uluslararası başarılı antrenörler`;
     }
-    
-    if (lowerMessage.includes('eczacıbaşı') || lowerMessage.includes('tiger')) {
-        return 'Eczacıbaşı Dynavit, köklü geçmişi olan bir takımdır. Giovanni Caprara gibi ünlü antrenörlerle çalışmış, birçok uluslararası başarı elde etmiştir.';
+
+    if (containsAny(lowerMessage, ['fenerbahçe', 'fener', 'fb'])) {
+        return `💛💙 <strong>Fenerbahçe Voleybol</strong><br><br>
+        <strong>Fenerbahçe Opet (Kadın):</strong><br>
+        • 2024 Sultanlar Ligi Şampiyonu<br>
+        • Avrupa kupalarında başarılı<br>
+        • Güçlü kadro ve organizasyon<br><br>
+        <strong>Fenerbahçe HDI Sigorta (Erkek):</strong><br>
+        • Efeler Ligi'nde güçlü takım<br>
+        • Deneyimli antrenörler<br>
+        • Genç yetenekli oyuncular<br><br>
+        Fenerbahçe voleybolda da Türk sporuna katkı sağlamaktadır.`;
     }
-    
-    if (lowerMessage.includes('galatasaray') || lowerMessage.includes('cimbom')) {
-        return 'Galatasaray, voleybolda da Türk sporuna katkı sağlamaktadır. Hem kadın hem erkek takımlarıyla ligde mücadele etmektedir.';
+
+    if (containsAny(lowerMessage, ['eczacıbaşı', 'tiger', 'eczacı'])) {
+        return `🧡 <strong>Eczacıbaşı Dynavit</strong><br><br>
+        Köklü geçmişi olan başarılı takım:<br><br>
+        <strong>Özellikler:</strong><br>
+        • Uzun yıllardır Sultanlar Ligi'nde<br>
+        • Uluslararası deneyimli antrenörler<br>
+        • Güçlü altyapı sistemi<br>
+        • Avrupa kupalarında tecrübeli<br><br>
+        <strong>Başarılar:</strong><br>
+        • Çok sayıda lig şampiyonluğu<br>
+        • Avrupa kupalarında madalyalar<br>
+        • Türk voleyboluna katkı`;
     }
-    
-    if (lowerMessage.includes('halkbank')) {
-        return 'Halkbank, Efeler Ligi\'nin en güçlü takımlarından biridir. Erkek voleybolunda birçok şampiyonluk kazanmış, Avrupa kupalarında da başarılı olmuştur.';
+
+    if (containsAny(lowerMessage, ['halkbank', 'halk'])) {
+        return `🔴 <strong>Halkbank Voleybol</strong><br><br>
+        Efeler Ligi'nin en güçlü takımlarından!<br><br>
+        <strong>Başarılar:</strong><br>
+        • 2024 Efeler Ligi Şampiyonu<br>
+        • Çok sayıda erkek voleybol şampiyonluğu<br>
+        • CEV Şampiyonlar Ligi'nde başarılı<br>
+        • Avrupa kupalarında madalyalar<br><br>
+        <strong>Özellikler:</strong><br>
+        • Güçlü erkek voleybol takımı<br>
+        • Profesyonel antrenman tesisleri<br>
+        • Deneyimli ve genç oyuncu karışımı`;
     }
-    
-    // Pozisyonlar ve teknik konular
-    if (lowerMessage.includes('pozisyon') || lowerMessage.includes('mevki') || lowerMessage.includes('oyuncu')) {
-        return 'Voleybol pozisyonları: Pasör (takımın beynı), Smaçör (saldırı oyuncusu), Orta Oyuncu (blok ve hızlı saldırı), Çapraz (güçlü smaçör), Libero (savunma uzmanı, servis atamaz).';
+
+    // Liglerle ilgili
+    if (containsAny(lowerMessage, ['sultanlar ligi', 'kadın ligi', 'sultanlar'])) {
+        return `👑 <strong>Sultanlar Ligi</strong><br><br>
+        Türkiye'nin en prestijli kadın voleybol ligi!<br><br>
+        <strong>Format:</strong><br>
+        • 12 takım katılır<br>
+        • Normal sezon + Playoff sistemi<br>
+        • Şampiyon CEV Şampiyonlar Ligi'ne katılır<br><br>
+        <strong>Güçlü Takımlar:</strong><br>
+        • VakıfBank • Fenerbahçe Opet<br>
+        • Eczacıbaşı • Galatasaray<br>
+        • Türk Hava Yolları • Sarıyer<br><br>
+        2024 Şampiyonu: Fenerbahçe Opet`;
     }
-    
-    if (lowerMessage.includes('smaç') || lowerMessage.includes('atak')) {
-        return 'Smaç, voleybolun en spektaküler hareketidir. Oyuncu zıplayarak topu güçlü şekilde karşı sahaya vurur. İyi bir smaç için timing, güç ve teknik gereklidir.';
+
+    if (containsAny(lowerMessage, ['efeler ligi', 'erkek ligi', 'efeler'])) {
+        return `⚔️ <strong>Efeler Ligi</strong><br><br>
+        Türkiye'nin en prestijli erkek voleybol ligi!<br><br>
+        <strong>Format:</strong><br>
+        • 12 takım katılır<br>
+        • Normal sezon + Playoff sistemi<br>
+        • Yüksek kaliteli oyunlar<br><br>
+        <strong>Güçlü Takımlar:</strong><br>
+        • Halkbank • Fenerbahçe HDI<br>
+        • Galatasaray • Arkas Spor<br>
+        • Ziraat Bankkart • İnegöl<br><br>
+        2024 Şampiyonu: Halkbank`;
     }
-    
-    if (lowerMessage.includes('blok') || lowerMessage.includes('bloklama')) {
-        return 'Blok, karşı takımın smaçını durdurmak için filede yapılan savunma hareketidir. Genellikle 2-3 oyuncu birlikte blok yapar.';
-    }
-    
-    if (lowerMessage.includes('servis') || lowerMessage.includes('atış')) {
-        return 'Servis, oyunu başlatan harekettir. Alt servis, üst servis, jump servis gibi çeşitleri vardır. Güçlü servis büyük avantaj sağlar.';
-    }
-    
-    if (lowerMessage.includes('libero')) {
-        return 'Libero, savunma uzmanı oyuncudur. Farklı renk forma giyer, servis atamaz ve ön bölgede smaç yapamaz. Sadece arka bölgede oynar.';
-    }
-    
-    // Liglerle ilgili detaylı bilgiler
-    if (lowerMessage.includes('sultanlar ligi') || lowerMessage.includes('kadın ligi')) {
-        return 'Sultanlar Ligi, Türkiye\'nin en üst düzey kadın voleybol ligidir. 12 takım katılır, playoff sistemiyle şampiyon belirlenir. VakıfBank, Fenerbahçe, Eczacıbaşı en güçlü takımlardır.';
-    }
-    
-    if (lowerMessage.includes('efeler ligi') || lowerMessage.includes('erkek ligi')) {
-        return 'Efeler Ligi, Türkiye\'nin en üst düzey erkek voleybol ligidir. Halkbank, Fenerbahçe, Galatasaray gibi güçlü takımlar yer alır.';
-    }
-    
-    // Şampiyonlar ve başarılar
-    if (lowerMessage.includes('şampiyon') || lowerMessage.includes('kazanan') || lowerMessage.includes('başarı')) {
-        return '2024 sezonunda Sultanlar Ligi şampiyonu Fenerbahçe Opet, Efeler Ligi şampiyonu Halkbank oldu. Türk takımları Avrupa\'da da başarılıdır.';
-    }
-    
-    if (lowerMessage.includes('avrupa') || lowerMessage.includes('şampiyonlar ligi') || lowerMessage.includes('cev')) {
-        return 'CEV Şampiyonlar Ligi, Avrupa\'nın en prestijli voleybol turnuvasıdır. VakıfBank bu turnuvayı 4 kez kazanarak tarihe geçmiştir.';
-    }
-    
+
     // Milli takım
-    if (lowerMessage.includes('milli takım') || lowerMessage.includes('filenin sultanları') || lowerMessage.includes('türkiye')) {
-        return 'Filenin Sultanları (Kadın Milli Takım) dünya voleybolunun güçlü takımlarındandır. Olimpiyatlar, Dünya Şampiyonası ve Avrupa Şampiyonası\'nda madalyalar kazanmıştır.';
+    if (containsAny(lowerMessage, ['milli takım', 'filenin sultanları', 'türkiye milli'])) {
+        return `🇹🇷 <strong>Türkiye Milli Voleybol Takımları</strong><br><br>
+        <strong>Filenin Sultanları (Kadın):</strong><br>
+        • Dünya'nın en güçlü takımlarından<br>
+        • Olimpiyat madalyacısı<br>
+        • Avrupa ve Dünya Şampiyonası madalyaları<br>
+        • VNL'de (Voleybol Milletler Ligi) başarılı<br><br>
+        <strong>Erkek Milli Takım:</strong><br>
+        • Avrupa Şampiyonası'nda başarılı<br>
+        • Genç ve yetenekli kadro<br>
+        • Uluslararası turnuvalarda tecrübe<br><br>
+        Her iki takım da Türk voleybolunun gururu!`;
     }
-    
-    if (lowerMessage.includes('olimpiyat') || lowerMessage.includes('olimpik')) {
-        return 'Türk voleybol milli takımları olimpiyatlarda önemli başarılar elde etmiştir. Özellikle kadın milli takımı birçok kez olimpiyatlara katılmıştır.';
+
+    // Teknik konular
+    if (containsAny(lowerMessage, ['smaç', 'atak', 'spike'])) {
+        return `⚡ <strong>Smaç (Spike)</strong><br><br>
+        Voleybolun en spektaküler hareketidir!<br><br>
+        <strong>Smaç Teknikleri:</strong><br>
+        • Koşu adımları (3 adım yaklaşım)<br>
+        • Güçlü zıplama<br>
+        • Kol hareketi ve timing<br>
+        • Bilek vuruşu<br><br>
+        <strong>Smaç Çeşitleri:</strong><br>
+        • Güçlü smaç (Power attack)<br>
+        • Yerleştirme (Tip/Dink)<br>
+        • Çapraz smaç<br>
+        • Paralel smaç<br><br>
+        İyi bir smaç için pratik ve koordinasyon gerekir!`;
     }
-    
-    // Antrenörler ve oyuncular
-    if (lowerMessage.includes('antrenör') || lowerMessage.includes('coach')) {
-        return 'Türk voleybolunda Giovanni Guidetti, Giovanni Caprara, Marco Aurelio Motta gibi dünyaca ünlü antrenörler görev yapmıştır.';
+
+    if (containsAny(lowerMessage, ['blok', 'bloklama', 'block'])) {
+        return `🛡️ <strong>Blok</strong><br><br>
+        Savunmanın en önemli parçası!<br><br>
+        <strong>Blok Teknikleri:</strong><br>
+        • Doğru pozisyon alma<br>
+        • Elleri file üstünde tutma<br>
+        • Timing'i yakalama<br>
+        • Takım arkadaşıyla koordinasyon<br><br>
+        <strong>Blok Çeşitleri:</strong><br>
+        • Tek blok (Solo block)<br>
+        • Çift blok (Double block)<br>
+        • Üçlü blok (Triple block)<br>
+        • Hareketli blok (Swing block)<br><br>
+        İyi blok yapan takım savunmada çok güçlü olur!`;
     }
-    
-    if (lowerMessage.includes('oyuncu') || lowerMessage.includes('yıldız')) {
-        return 'Türk voleybolunun yıldız oyuncuları arasında Gözde Kırdar, Neslihan Demir, Ebrar Karakurt, Eda Erdem gibi isimler yer almaktadır.';
+
+    if (containsAny(lowerMessage, ['servis', 'service', 'atış'])) {
+        return `🎯 <strong>Servis</strong><br><br>
+        Oyunu başlatan en önemli hareket!<br><br>
+        <strong>Servis Çeşitleri:</strong><br>
+        • Alt servis (Underhand)<br>
+        • Üst servis (Overhand)<br>
+        • Topspin servis<br>
+        • Float servis<br>
+        • Jump servis (Sıçrayarak)<br><br>
+        <strong>Servis Teknikleri:</strong><br>
+        • Doğru duruş<br>
+        • Top atışı<br>
+        • Güçlü kol hareketi<br>
+        • Hedef belirleme<br><br>
+        Güçlü servis büyük avantaj sağlar! 🎯`;
     }
-    
-    // Teknik terimler
-    if (lowerMessage.includes('dig') || lowerMessage.includes('savunma')) {
-        return 'Dig, karşı takımın smaçını kurtarma hareketidir. Libero ve diğer oyuncular dig yaparak topu oyunda tutar.';
+
+    if (containsAny(lowerMessage, ['libero', 'libero nedir'])) {
+        return `🔄 <strong>Libero</strong><br><br>
+        Savunmanın kralı!<br><br>
+        <strong>Libero Özellikleri:</strong><br>
+        • Farklı renk forma giyer<br>
+        • Sadece arka bölgede oynar<br>
+        • Servis atamaz<br>
+        • Smaç yapamaz (net üstünde)<br>
+        • Sınırsız oyuncu değişimi<br><br>
+        <strong>Libero Görevleri:</strong><br>
+        • Savunma (Dig)<br>
+        • Karşılama (Receive)<br>
+        • Pas verme (arka bölgeden)<br>
+        • Takım liderliği<br><br>
+        Libero olmak için hızlı refleks gerekir! ⚡`;
     }
-    
-    if (lowerMessage.includes('set') || lowerMessage.includes('pas')) {
-        return 'Set (pas), smaçörlerin vurabileceği şekilde topu ayarlama hareketidir. Pasör bu işi yapar ve takımın oyun kurucu beynidir.';
-    }
-    
-    // Tesis ve sahalar
-    if (lowerMessage.includes('saha') || lowerMessage.includes('salon') || lowerMessage.includes('tesis')) {
-        return 'Voleybol sahası 18x9 metre boyutlarındadır. TVF Başkent Salonu, VakıfBank Spor Sarayı gibi modern tesisler bulunmaktadır.';
-    }
-    
-    // Hakem ve kurallar
-    if (lowerMessage.includes('hakem') || lowerMessage.includes('faul') || lowerMessage.includes('ihlal')) {
-        return 'Voleybolda 1. hakem file üstünde, 2. hakem yanda pozisyon alır. Çizgi hakemi ve skor hakemi de vardır. Net dokunması, çift dokunma gibi fauller vardır.';
-    }
-    
-    // Tarih ve gelişim
-    if (lowerMessage.includes('tarih') || lowerMessage.includes('geçmiş') || lowerMessage.includes('gelişim')) {
-        return 'Voleybol 1895\'te William Morgan tarafından icat edildi. Türkiye\'de 1960\'lardan beri popülerdir ve büyük gelişim göstermiştir.';
-    }
-    
-    // Fiziksel özellikler
-    if (lowerMessage.includes('boy') || lowerMessage.includes('fizik') || lowerMessage.includes('kondisyon')) {
-        return 'Voleybolda boy avantajı önemlidir ama tek başına yeterli değildir. Çeviklik, refleks, koordinasyon ve takım oyunu da çok önemlidir.';
-    }
-    
+
     // Antrenman ve gelişim
-    if (lowerMessage.includes('antrenman') || lowerMessage.includes('çalışma') || lowerMessage.includes('gelişme')) {
-        return 'Voleybol antrenmanları teknik, taktik, fiziksel ve mental hazırlığı içerir. Düzenli antrenmanla beceriler geliştirilir.';
+    if (containsAny(lowerMessage, ['antrenman', 'çalışma', 'training', 'practice'])) {
+        return `💪 <strong>Voleybol Antrenmanı</strong><br><br>
+        <strong>Antrenman Türleri:</strong><br>
+        • Teknik antrenman (Beceri geliştirme)<br>
+        • Taktik antrenman (Oyun sistemi)<br>
+        • Fiziksel antrenman (Güç, dayanıklılık)<br>
+        • Mental antrenman (Konsantrasyon)<br><br>
+        <strong>Temel Egzersizler:</strong><br>
+        • Pas çalışması<br>
+        • Smaç tekrar<br>
+        • Servis pratiği<br>
+        • Blok çalışması<br>
+        • Savunma drilleri<br><br>
+        Düzenli antrenmanla herkes gelişebilir! 🏃‍♂️`;
     }
-    
-    // Selamlama ve nezaket
-    if (lowerMessage.includes('merhaba') || lowerMessage.includes('selam') || lowerMessage.includes('hey') || lowerMessage.includes('naber')) {
-        return 'Merhaba! Voleybol dünyasına hoş geldiniz! Size voleybol hakkında her konuda yardımcı olabilirim. Ne öğrenmek istiyorsunuz?';
+
+    if (containsAny(lowerMessage, ['nasıl başlarım', 'nasıl öğrenirim', 'başlangıç', 'yeni başlayan'])) {
+        return `🌟 <strong>Voleybol Nasıl Öğrenilir?</strong><br><br>
+        <strong>Başlangıç Adımları:</strong><br>
+        1. Temel teknikleri öğrenin (pas, servis, smaç)<br>
+        2. Bir takıma katılın veya kurs alın<br>
+        3. Düzenli antrenman yapın<br>
+        4. Oyun kurallarını öğrenin<br>
+        5. Maç izleyerek taktik öğrenin<br><br>
+        <strong>İhtiyaçlar:</strong><br>
+        • Voleybol ayakkabısı<br>
+        • Spor kıyafeti<br>
+        • Dizlik (opsiyonel)<br>
+        • Sabır ve kararlılık<br><br>
+        Her yaşta başlanabilir! Önemli olan istek ve çaba! 💫`;
     }
-    
-    if (lowerMessage.includes('teşekkür') || lowerMessage.includes('sağol') || lowerMessage.includes('thanks') || lowerMessage.includes('eyvallah')) {
-        return 'Rica ederim! Voleybol hakkında daha fazla bilgi almak isterseniz, her zaman buradayım. Başka sorularınız var mı?';
+
+   if (containsAny(lowerMessage, ['beslenme', 'diyet', 'nutrition', 'yemek'])) {
+        return `🥗 <strong>Voleybolcu Beslenmesi</strong><br><br>
+        <strong>Antrenman Öncesi:</strong><br>
+        • Karbonhidrat ağırlıklı besinler<br>
+        • Muz, kuruyemiş, enerji barı<br>
+        • Bol su tüketimi<br>
+        • 2-3 saat önceden ana öğün<br><br>
+        <strong>Antrenman Sonrası:</strong><br>
+        • Protein + karbonhidrat karışımı<br>
+        • Süt, yoğurt, protein shake<br>
+        • Kas onarımı için protein<br>
+        • Glikojen yenilenmesi için karbonhidrat<br><br>
+        <strong>Günlük Beslenme:</strong><br>
+        • Bol protein (et, balık, yumurta)<br>
+        • Kompleks karbonhidrat<br>
+        • Sebze ve meyve<br>
+        • 2-3 litre su`;
     }
-    
-    if (lowerMessage.includes('güle güle') || lowerMessage.includes('hoşça kal') || lowerMessage.includes('bye')) {
-        return 'Hoşça kalın! Voleybol hakkında merak ettikleriniz olduğunda tekrar gelin. İyi günler!';
+
+    if (containsAny(lowerMessage, ['sakatlanma', 'yaralanma', 'injury', 'korunma'])) {
+        return `🏥 <strong>Yaralanmalardan Korunma</strong><br><br>
+        <strong>Yaygın Yaralanmalar:</strong><br>
+        • Ayak bileği burkulması<br>
+        • Diz yaralanmaları<br>
+        • Omuz problemleri<br>
+        • Parmak yaralanmaları<br>
+        • Sırt ağrıları<br><br>
+        <strong>Korunma Yöntemleri:</strong><br>
+        • Doğru ısınma (15-20 dk)<br>
+        • Güçlendirme egzersizleri<br>
+        • Doğru teknik kullanımı<br>
+        • Uygun ekipman<br>
+        • Yeterli dinlenme<br><br>
+        <strong>Önemli:</strong> Ağrı varsa doktora başvurun! 🩺`;
     }
-    
-    // Yardım ve genel bilgi
-    if (lowerMessage.includes('yardım') || lowerMessage.includes('ne sorabilir') || lowerMessage.includes('neler bil')) {
-        return 'Size şu konularda yardımcı olabilirim: Voleybol kuralları, takımlar, oyuncular, pozisyonlar, teknik bilgiler, maç sonuçları, şampiyonlar, milli takım, antrenman, Avrupa kupaları ve daha fazlası!';
+
+    // Teknik detaylar
+    if (containsAny(lowerMessage, ['pas', 'passing', 'set'])) {
+        return `🤲 <strong>Pas Verme</strong><br><br>
+        <strong>Üst Pas (Set):</strong><br>
+        • Parmak uçlarıyla temas<br>
+        • Yumuşak bilek hareketi<br>
+        • Hedef belirleme<br>
+        • Vücut denge<br><br>
+        <strong>Alt Pas (Bump):</strong><br>
+        • Kollar düz ve birleşik<br>
+        • Dizlerden güç alma<br>
+        • Doğru platform oluşturma<br>
+        • Topun ön kolda değmesi<br><br>
+        <strong>Pas Çeşitleri:</strong><br>
+        • Hızlı pas (1 numara)<br>
+        • Orta pas (2 numara)<br>
+        • Yüksek pas (4 numara)<br>
+        • Arka pas (Back set)`;
     }
-    
-    // Kelime analizi ile akıllı yanıtlar
-    if (lowerMessage.includes('hangi') || lowerMessage.includes('kim') || lowerMessage.includes('ne') || lowerMessage.includes('nasıl') || lowerMessage.includes('neden') || lowerMessage.includes('nerede')) {
-        if (lowerMessage.includes('takım')) {
-            return 'Türkiye\'de Sultanlar Ligi\'nde VakıfBank, Fenerbahçe, Eczacıbaşı, Galatasaray gibi güçlü takımlar var. Efeler Ligi\'nde ise Halkbank, Fenerbahçe, Galatasaray öne çıkıyor.';
-        } else if (lowerMessage.includes('oyun')) {
-            return 'Voleybol heyecan dolu bir takım sporudur. 6 kişilik takımlar halinde oynanır ve amaç topu karşı sahaya düşürmektir.';
-        } else {
-            return 'Bu konuda size yardımcı olmaya çalışayım. Voleybol ile ilgili daha spesifik bir soru sorabilirsiniz. Takımlar, kurallar, oyuncular hakkında ne öğrenmek istiyorsunuz?';
-        }
+
+    if (containsAny(lowerMessage, ['taktik', 'tactics', 'strateji', 'sistem'])) {
+        return `🧠 <strong>Voleybol Taktikleri</strong><br><br>
+        <strong>Saldırı Sistemleri:</strong><br>
+        • 4-2 Sistemi (2 pasör)<br>
+        • 6-2 Sistemi (6 smaçör)<br>
+        • 5-1 Sistemi (1 pasör)<br><br>
+        <strong>Savunma Sistemleri:</strong><br>
+        • Blok-savunma koordinasyonu<br>
+        • Rotasyon savunması<br>
+        • Karşılama dizilimi<br><br>
+        <strong>Özel Taktikler:</strong><br>
+        • Hızlı atak<br>
+        • Kombinasyon oyunları<br>
+        • Servis stratejisi<br>
+        • Time-out kullanımı<br><br>
+        Taktik bilgisi oyunu kazandırır! 🎯`;
     }
-    
-    // Diğer spor dalları ile karşılaştırma
-    if (lowerMessage.includes('basketbol') || lowerMessage.includes('futbol') || lowerMessage.includes('tenis')) {
-        return 'Voleybol diğer sporlardan farklı olarak elle oynanan, net üzerinden oynanan ve sürekli oyun akışı olan bir spordur. Takım oyunu çok önemlidir.';
+
+    // Hakem ve kurallar
+    if (containsAny(lowerMessage, ['hakem', 'referee', 'kurallara itiraz'])) {
+        return `👨‍⚖️ <strong>Hakem ve Kurallar</strong><br><br>
+        <strong>Hakem Ekibi:</strong><br>
+        • 1. Hakem (Baş hakem)<br>
+        • 2. Hakem (Yardımcı)<br>
+        • Skor yazıcısı<br>
+        • Çizgi hakemleri (2 veya 4)<br><br>
+        <strong>Hakem İşaretleri:</strong><br>
+        • Sayı işareti<br>
+        • Faul işaretleri<br>
+        • Servis işareti<br>
+        • Time-out işareti<br><br>
+        <strong>Önemli:</strong><br>
+        Hakeme saygı göstermek sporun temel kuralıdır! 🤝`;
     }
-    
-    // Yaş ve kategori
-    if (lowerMessage.includes('yaş') || lowerMessage.includes('kategori') || lowerMessage.includes('genç')) {
-        return 'Voleybol her yaşta oynanabilir. Gençler, büyükler, veteranlar kategorileri vardır. Mini voleybol ile küçük yaşlarda başlanabilir.';
+
+    // Mental ve motivasyon
+    if (containsAny(lowerMessage, ['motivasyon', 'mental', 'stres', 'konsantrasyon'])) {
+        return `🧘‍♀️ <strong>Mental Hazırlık</strong><br><br>
+        <strong>Mental Güç:</strong><br>
+        • Konsantrasyon teknikleri<br>
+        • Nefes egzersizleri<br>
+        • Görselleştirme<br>
+        • Pozitif düşünce<br><br>
+        <strong>Stres Yönetimi:</strong><br>
+        • Maç öncesi rutinler<br>
+        • Gevşeme teknikleri<br>
+        • Hedef belirleme<br>
+        • Takım arkadaşı desteği<br><br>
+        <strong>Motivasyon:</strong><br>
+        • Kişisel hedefler<br>
+        • Takım başarısı<br>
+        • Sürekli gelişim<br>
+        • Keyif alma<br><br>
+        Mental güç fiziksel güç kadar önemli! 💪`;
     }
-    
-    // Malzeme ve ekipman
-    if (lowerMessage.includes('malzeme') || lowerMessage.includes('top') || lowerMessage.includes('file') || lowerMessage.includes('ekipman')) {
-        return 'Voleybol için: Voleybol topu (çevresi 65-67 cm), file (kadınlarda 2.24m, erkeklerde 2.43m), voleybol ayakkabısı ve uygun kıyafet gerekir.';
+
+    // Ekipman ve malzeme
+    if (containsAny(lowerMessage, ['ekipman', 'malzeme', 'ayakkabı', 'top'])) {
+        return `👟 <strong>Voleybol Ekipmanları</strong><br><br>
+        <strong>Kişisel Ekipman:</strong><br>
+        • Voleybol ayakkabısı (grip önemli)<br>
+        • Spor kıyafeti (esnek)<br>
+        • Dizlik (koruma)<br>
+        • Bileklik/bantlar<br><br>
+        <strong>Saha Ekipmanı:</strong><br>
+        • Voleybol topu (resmi ölçü)<br>
+        • File sistemi<br>
+        • Saha çizgileri<br>
+        • Skor tabelası<br><br>
+        <strong>Top Özellikleri:</strong><br>
+        • Çevre: 65-67 cm<br>
+        • Ağırlık: 260-280 gram<br>
+        • Basınç: 0.30-0.325 kg/cm²<br><br>
+        Kaliteli ekipman performansı artırır! ⚡`;
     }
-    
-    // Avantaj ve faydalar
-    if (lowerMessage.includes('fayda') || lowerMessage.includes('avantaj') || lowerMessage.includes('yarar')) {
-        return 'Voleybol oynamak: Koordinasyonu geliştirir, takım ruhunu güçlendirir, refleksleri hızlandırır, alt ve üst vücut kaslarını çalıştırır, sosyalleşmeyi sağlar.';
+
+    // Voleybol tarihi
+    if (containsAny(lowerMessage, ['tarih', 'history', 'kim buldu', 'nasıl çıktı'])) {
+        return `📚 <strong>Voleybol Tarihi</strong><br><br>
+        <strong>Başlangıç:</strong><br>
+        • 1895'te William Morgan tarafından icat edildi<br>
+        • ABD Massachusetts'te<br>
+        • İlk adı "Mintonette"<br>
+        • Basketbola alternatif olarak<br><br>
+        <strong>Gelişim:</strong><br>
+        • 1947: FIVB kuruldu<br>
+        • 1964: Olimpiyatlara girdi<br>
+        • 1990: Libero pozisyonu eklendi<br>
+        • 1999: Rally point sistemi<br><br>
+        <strong>Türkiye'de:</strong><br>
+        • 1960'larda popüler oldu<br>
+        • 1990'larda profesyonelleşti<br>
+        • 2000'lerde dünya çapında başarı<br><br>
+        120+ yıllık köklü bir spor! 🏐`;
     }
-    
-    // Zorlukllar ve dezavantajlar
-    if (lowerMessage.includes('zor') || lowerMessage.includes('dezavantaj') || lowerMessage.includes('problem')) {
-        return 'Voleybol öğrenmesi kolay ama ustalaşması zor bir spordur. İyi timing, koordinasyon ve takım oyunu gerektirir. Düzenli antrenmanla bu zorluklar aşılır.';
+
+    // Dünya voleybol
+    if (containsAny(lowerMessage, ['dünya', 'international', 'olimpiyat', 'şampiyona'])) {
+        return `🌍 <strong>Dünya Voleybol</strong><br><br>
+        <strong>Büyük Turnuvalar:</strong><br>
+        • Olimpiyat Oyunları (4 yılda bir)<br>
+        • Dünya Şampiyonası (4 yılda bir)<br>
+        • VNL - Voleybol Milletler Ligi<br>
+        • Avrupa Şampiyonası<br><br>
+        <strong>Güçlü Ülkeler:</strong><br>
+        • Brezilya (erkek-kadın)<br>
+        • ABD (her iki kategori)<br>
+        • İtalya (güçlü liglar)<br>
+        • Rusya (geleneksel güç)<br>
+        • Türkiye (özellikle kadın)<br><br>
+        <strong>FIVB:</strong> Dünya Voleybol Federasyonu<br>
+        220+ ülke üye! 🏆`;
     }
-    
-    // Gelişmiş varsayılan yanıtlar - Her durumda mantıklı cevap ver
-    const smartResponses = [
-        `"${message}" hakkında size şunu söyleyebilirim: Voleybol çok geniş bir konu! Bu konuyla ilgili daha spesifik bir şey sormak isterseniz, detaylı bilgi verebilirim.`,
-        `Anlıyorum, "${message}" konusunda bilgi arıyorsunuz. Voleybol dünyasında bunun karşılığını bulalım. Hangi açıdan yaklaşmak istersiniz?`,
-        `"${message}" ile ilgili olarak şu konulardan hangisi daha çok ilginizi çekiyor: Kurallar, takımlar, oyuncular, teknik bilgiler?`,
-        `Bu konu hakkında size yardımcı olmak istiyorum. "${message}" konusunu voleybol açısından değerlendirelim. Daha detaylı sormak ister misiniz?`,
-        `Voleybol dünyasında "${message}" konusu gerçekten önemli. Size bu konuda hangi perspektiften yardımcı olabilirim? Teknik mi, takım bilgileri mi?`
+
+    // Sıkça sorulan genel sorular
+    if (containsAny(lowerMessage, ['yardım', 'help', 'neler biliyorsun', 'ne yapabilirsin'])) {
+        return `🤖 <strong>Size Nasıl Yardımcı Olabilirim?</strong><br><br>
+        <strong>Voleybol Konuları:</strong><br>
+        • Oyun kuralları ve teknikler<br>
+        • Türk takımları ve ligler<br>
+        • Antrenman ve gelişim<br>
+        • Milli takım bilgileri<br><br>
+        <strong>Diğer Konular:</strong><br>
+        • Spor genel bilgiler<br>
+        • Teknoloji soruları<br>
+        • Eğitim yardımı<br>
+        • Genel sohbet<br><br>
+        Herhangi bir sorunuz olduğunda çekinmeden sorun! 
+        İstediğiniz konuyu yazabilir veya hızlı butonları kullanabilirsiniz. 😊`;
+    }
+
+    if (containsAny(lowerMessage, ['merhaba', 'selam', 'hello', 'hi', 'hey'])) {
+        const greetings = [
+            `Merhaba! 👋 Voleybol dünyasına hoş geldiniz! Size nasıl yardımcı olabilirim?`,
+            `Selam! 🏐 Voleybol hakkında merak ettiğiniz ne var?`,
+            `Hey! 😊 Bugün hangi konuda sohbet edelim?`,
+            `Merhaba! ⚡ Voleybol tekniklerinden takım bilgilerine kadar her şeyi sorun!`,
+            `Selam! 🌟 Size voleybol dünyasından neler anlatabilirim?`
+        ];
+        return greetings[Math.floor(Math.random() * greetings.length)];
+    }
+
+    if (containsAny(lowerMessage, ['teşekkür', 'sağol', 'thank you', 'thanks', 'eywallah'])) {
+        const thanks = [
+            `Rica ederim! 😊 Başka sorunuz olursa çekinmeyin!`,
+            `Her zaman! 🏐 Voleybol hakkında daha çok şey öğrenmek isterseniz buradayım!`,
+            `Bir şey değil! ⚡ Size yardımcı olmaktan mutluluk duyuyorum!`,
+            `Memnun oldum! 🌟 Başka merak ettikleriniz varsa sorun!`
+        ];
+        return thanks[Math.floor(Math.random() * thanks.length)];
+    }
+
+    // Hava durumu, spor dışı konular için genel yanıtlar
+    if (containsAny(lowerMessage, ['hava', 'weather', 'bugün nasıl'])) {
+        return `🌤️ Hava durumu hakkında detaylı bilgi veremiyorum, ama voleybol için ideal hava koşulları kapalı salon olduğu için önemli değil! 😄<br><br>
+        Dış saha voleybol (plaj voleybolu) için güneşli ve rüzgarsız hava idealdir. Size voleybol hakkında başka ne anlatabilirim?`;
+    }
+
+    if (containsAny(lowerMessage, ['nasılsın', 'ne yapıyorsun', 'how are you'])) {
+        return `Ben bir AI asistanım ve her zaman iyiyim! 🤖✨<br><br>
+        Voleybol ve spor konularında size yardımcı olmak için buradayım. Şu anda voleybol dünyasından haberler, teknik bilgiler ve takım güncellemeleri hakkında konuşmaya hazırım!<br><br>
+        Siz nasılsınız? Voleybol oynuyor musunuz? 🏐`;
+    }
+
+    // Eğer hiçbir şey eşleşmezse, genel AI yanıtı
+    if (containsAny(lowerMessage, ['kim', 'ne', 'neden', 'nasıl', 'where', 'when', 'why', 'how', 'what'])) {
+        return `🤔 Bu konuda size tam olarak yardımcı olamayabilirim, ama elimden geleni yaparım!<br><br>
+        Ben öncelikle voleybol konularında uzmanım. Voleybol hakkında:<br>
+        • Kurallar ve teknikler<br>
+        • Türk takımları<br>
+        • Antrenman önerileri<br>
+        • Takım stratejileri<br><br>
+        Bu konulardan birini konuşmak ister misiniz? Veya sorunuzu daha detaylı açıklayabilir misiniz? 😊`;
+    }
+
+    // Varsayılan yanıt
+    const defaultResponses = [
+        `İlginç bir soru! 🤔 Bu konuda size tam olarak yardımcı olamayabilirim. Voleybol hakkında bir şeyler sormak ister misiniz?`,
+        `Bu konuyu tam olarak anlayamadım. 😅 Voleybol, spor veya başka bir konuda daha spesifik bir soru sorabilir misiniz?`,
+        `Hmm, bu konuda emin değilim. 🤷‍♂️ Size voleybol dünyasından neler anlatabilirim? Kurallar, takımlar, teknikler...`,
+        `Bu soruya tam yanıt veremeyebilirim. 😊 Ama voleybol hakkında her şeyi biliyorum! Ne öğrenmek istersiniz?`,
+        `Sorunuzu biraz daha açık sorabilir misiniz? 🙂 Voleybol ve spor konularında size daha iyi yardımcı olabilirim!`
     ];
     
-    return smartResponses[Math.floor(Math.random() * smartResponses.length)];
+    return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
 }
+
+// Yardımcı fonksiyon: Bir metinde belirli kelimelerin olup olmadığını kontrol eder
+function containsAny(text, keywords) {
+    return keywords.some(keyword => text.includes(keyword));
+}
+
+// Kullanıcı tercihlerini kaydetme
+function saveUserPreference(key, value) {
+    userPreferences[key] = value;
+}
+
+// Konuşma geçmişini temizleme
+function clearConversation() {
+    conversationHistory = [];
+    aiChatMessages.innerHTML = `
+        <div class="ai-message bot">
+            Merhaba! Ben gelişmiş AI asistanınızım. Voleybol, spor, teknoloji, eğitim ve daha birçok konuda size yardımcı olabilirim. Ne öğrenmek istiyorsunuz?
+        </div>
+    `;
+}
+
+// Sohbet geçmişini dışa aktarma
+function exportChat() {
+    const chatData = {
+        timestamp: new Date().toISOString(),
+        conversation: conversationHistory,
+        preferences: userPreferences
+    };
+    
+    const dataStr = JSON.stringify(chatData, null, 2);
+    const dataBlob = new Blob([dataStr], {type: 'application/json'});
+    
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(dataBlob);
+    link.download = `voleybol_sohbet_${new Date().toLocaleDateString('tr-TR')}.json`;
+    link.click();
+}
+
+// Gelişmiş özellikler için event listener'lar
+document.addEventListener('DOMContentLoaded', function() {
+    // Çoklu dil desteği için temel yapı
+    const currentLanguage = 'tr'; // Türkçe varsayılan
+    
+    // Gece/gündüz modu
+    const isDarkMode = false; // Varsayılan açık tema
+    
+    // Animasyonlar için ekstra CSS sınıfları
+    aiChatContainer.classList.add('advanced-chat');
+    
+    // Otomatik kaydetme (her 30 saniyede bir)
+    setInterval(() => {
+        if (conversationHistory.length > 0) {
+            localStorage.setItem('voleybol_chat_backup', JSON.stringify({
+                conversation: conversationHistory,
+                preferences: userPreferences,
+                timestamp: new Date().toISOString()
+            }));
+        }
+    }, 30000);
+    
+    // Kısayol tuşları
+    document.addEventListener('keydown', function(e) {
+        // Ctrl + / ile chat açma/kapama
+        if (e.ctrlKey && e.key === '/') {
+            e.preventDefault();
+            aiChatToggle.click();
+        }
+        
+        // ESC ile chat kapama
+        if (e.key === 'Escape' && aiChatContainer.style.display === 'flex') {
+            aiChatClose.click();
+        }
+    });
+});
+
+// Gelişmiş analitik ve kullanıcı davranışı takibi
+let chatStats = {
+    messagesCount: 0,
+    sessionStart: new Date(),
+    popularTopics: {},
+    averageResponseTime: 0
+};
+
+// Mesaj gönderildiğinde istatistikleri güncelle
+function updateChatStats(message) {
+    chatStats.messagesCount++;
+    
+    // Popüler konuları takip et
+    const lowerMessage = message.toLowerCase();
+    if (lowerMessage.includes('voleybol')) chatStats.popularTopics.voleybol = (chatStats.popularTopics.voleybol || 0) + 1;
+    if (lowerMessage.includes('takım')) chatStats.popularTopics.takım = (chatStats.popularTopics.takım || 0) + 1;
+    if (lowerMessage.includes('kural')) chatStats.popularTopics.kurallar = (chatStats.popularTopics.kurallar || 0) + 1;
+}
+
+// Performans optimizasyonu için debounce fonksiyonu
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Optimized send message function
+const optimizedSendMessage = debounce(sendMessage, 300);
+
+console.log('🏐 Gelişmiş Voleybol AI Chatbot yüklendi!');
+console.log('💡 Kısayollar: Ctrl+/ (Aç/Kapat), ESC (Kapat)');
+console.log('🤖 Voleybol dünyasına hoş geldiniz!');
 
         });
    
