@@ -960,6 +960,9 @@ function getAIResponse(message) {
     if (lowerMessage.includes('kural') || lowerMessage.includes('nasıl oynanır')) {
         return 'Voleybol 6 kişilik iki takımla oynanır. Topu karşı sahaya düşürmek ve kendi sahanızda düşürmemek amaçtır. Her takım topa en fazla 3 kez dokunabilir.';
     }
+     if (lowerMessage.includes('kural') || lowerMessage.includes('voleybol nedir')) {
+        return 'Voleybol, iki takım arasında oynanan, topun file üzerinden rakip sahaya gönderilmesi esasına dayanan bir takım sporudur. Her takım sahada 6 oyuncuyla yer alır ve amaç, topu rakip takımın sahasına düşürmek ve rakibin hata yapmasını sağlamaktır.';
+    }
     
     // Takımlar hakkında
     if (lowerMessage.includes('vakıfbank') || lowerMessage.includes('vakıf')) {
