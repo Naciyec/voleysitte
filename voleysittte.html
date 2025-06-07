@@ -579,222 +579,36 @@ document.addEventListener('DOMContentLoaded', function() {
         right: 15px;
     }
 }
-</style>
-
-<!-- CHATBOT HTML - Bu kısmı </body> tagından hemen önce ekleyin -->
-<div class="chatbot-container">
-    <button class="chatbot-toggle" id="chatbotToggle">
-        💬
-    </button>
-    
-    <div class="chatbot-window" id="chatbotWindow">
-        <div class="chatbot-header">
-            <h3>🏐 Voleybol Asistanı</h3>
-            <button class="close-btn" id="chatbotClose">×</button>
-        </div>
-        
-        <div class="chatbot-messages" id="chatbotMessages">
-            <div class="message bot">
-                <div class="message-avatar">🏐</div>
-                <div class="message-content">
-                    Merhaba! Voleybol Türkiye asistanınızım. Size nasıl yardımcı olabilirim?
-                </div>
-            </div>
-            <div class="quick-buttons">
-                <button class="quick-btn" data-message="Bugünkü maçlar">Bugünkü Maçlar</button>
-                <button class="quick-btn" data-message="Fikstür">Fikstür</button>
-                <button class="quick-btn" data-message="Son haberler">Son Haberler</button>
-                <button class="quick-btn" data-message="Şampiyonlar">Şampiyonlar</button>
-            </div>
-        </div>
-        
-        <div class="chatbot-input">
-            <div class="input-container">
-                <input type="text" id="chatbotInput" placeholder="Mesajınızı yazın...">
-                <button class="send-btn" id="chatbotSend">→</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- CHATBOT JAVASCRIPT - Bu kısmı mevcut JavaScript kodunuzun sonuna ekleyin -->
-<script>
-class VolleyballChatbot {
-    constructor() {
-        this.isOpen = false;
-        this.responses = {
-            'merhaba': 'Merhaba! Voleybol dünyasına hoş geldiniz! Size nasıl yardımcı olabilirim?',
-            'selam': 'Selam! Ben voleybol asistanınızım. Sorularınızı bekliyorum!',
-            'bugünkü maçlar': 'Bugün 20 Mart 2025 tarihinde şu maçlar var:\n• VakıfBank vs Eczacıbaşı Dynavit (19:00)\n• Halkbank vs Ziraat Bankkart (17:30)',
-            'fikstür': 'Yaklaşan maçlar:\n• 20 Mart: VakıfBank vs Eczacıbaşı Dynavit\n• 22 Mart: Fenerbahçe HDİ Sigorta vs Galatasaray HDİ Sigorta\nDetaylı fikstür için Fikstür sekmesini ziyaret edebilirsiniz.',
-            'son haberler': 'Son haberler:\n• Hande Baladın, Eczacıbaşı Dynavitten ayrıldı\n• VakıfBank, Şampiyonlar Ligi yarı finalinde!\n• Fenerbahçe Medicana, Kuzeyboru karşısında 3-1 galip geldi\n• Eczacıbaşı Dynavit, Ferhat Akbaş ile yollarını ayırdı',
-            'şampiyonlar': 'Son şampiyonlar:\n• Sultanlar Ligi 2025: Vakıfbank\n• Efeler Ligi 2025: ZiraatBankart\n• CEV Şampiyonlar Ligi 2025: Imaco Volley',
-            'vakıfbank': 'VakıfBank, Türk voleybolunun en başarılı takımlarından biri. Şampiyonlar Liginde yarı finale yükseldi!',
-            'fenerbahçe': 'Fenerbahçe Opet, Sultanlar Liginin son şampiyonu. Hem kadın hem erkek takımları mücadele ediyor.',
-            'eczacıbaşı': 'Eczacıbaşı Dynavit, Sultanlar Liginin köklü takımlarından. Yakın zamanda antrenör değişikliği yaşadı.',
-            'galatasaray': 'Galatasaray, hem Sultanlar hem Efeler Liginde mücadele eden başarılı kulüp.',
-            'halkbank': 'Halkbank, Efeler Liginin 2024 şampiyonu. Erkek voleybolunun güçlü takımlarından.',
-            'teşekkürler': 'Rica ederim! Başka sorularınız varsa çekinmeden sorabilirsiniz.',
-            'teşekkür': 'Ne demek! Size yardımcı olmaktan mutluluk duyuyorum.',
-            'iyi günler': 'Size de iyi günler! Voleybol sevgisiyle!',
-            'görüşürüz': 'Görüşmek üzere! Voleybol haberlerini takip etmeyi unutmayın!',
-            'yardım': 'Size şu konularda yardımcı olabilirim:\n• Maç fikstürü ve sonuçları\n• Takım bilgileri\n• Son haberler\n• Şampiyon takımlar\n• Genel voleybol bilgileri'
-        };
-        
-        this.initializeEventListeners();
-        this.addWelcomeMessage();
-    }
-    
-    initializeEventListeners() {
-        const toggle = document.getElementById('chatbotToggle');
-        const close = document.getElementById('chatbotClose');
-        const send = document.getElementById('chatbotSend');
-        const input = document.getElementById('chatbotInput');
-        
-        toggle.addEventListener('click', () => this.toggleChatbot());
-        close.addEventListener('click', () => this.closeChatbot());
-        send.addEventListener('click', () => this.sendMessage());
-        
-        input.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                this.sendMessage();
-            }
-        });
-        
-        // Hızlı butonlar için event listener
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('quick-btn')) {
-                const message = e.target.getAttribute('data-message');
-                this.sendMessage(message);
-            }
-        });
-    }
-    
-    toggleChatbot() {
-        const window = document.getElementById('chatbotWindow');
-        this.isOpen = !this.isOpen;
-        
-        if (this.isOpen) {
-            window.style.display = 'flex';
-            document.getElementById('chatbotInput').focus();
-        } else {
-            window.style.display = 'none';
-        }
-    }
-    
-    closeChatbot() {
-        const window = document.getElementById('chatbotWindow');
-        window.style.display = 'none';
-        this.isOpen = false;
-    }
-    
-    sendMessage(customMessage = null) {
-        const input = document.getElementById('chatbotInput');
-        const message = customMessage || input.value.trim();
-        
-        if (!message) return;
-        
-        this.addMessage(message, 'user');
-        
-        if (!customMessage) {
-            input.value = '';
-        }
-        
-        // Yazma göstergesi ekle
-        this.showTypingIndicator();
-        
-        // Bot yanıtını gecikme ile gönder
-        setTimeout(() => {
-            this.hideTypingIndicator();
-            const response = this.generateResponse(message);
-            this.addMessage(response, 'bot');
-        }, 1000 + Math.random() * 1000);
-    }
-    
-    addMessage(text, sender) {
-        const messagesContainer = document.getElementById('chatbotMessages');
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `message ${sender}`;
-        
-        const avatar = document.createElement('div');
-        avatar.className = 'message-avatar';
-        avatar.textContent = sender === 'bot' ? '🏐' : '👤';
-        
-        const content = document.createElement('div');
-        content.className = 'message-content';
-        content.textContent = text;
-        
-        messageDiv.appendChild(avatar);
-        messageDiv.appendChild(content);
-        messagesContainer.appendChild(messageDiv);
-        
-        // Scroll to bottom
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
-    
-    showTypingIndicator() {
-        const messagesContainer = document.getElementById('chatbotMessages');
-        const typingDiv = document.createElement('div');
-        typingDiv.className = 'typing-indicator';
-        typingDiv.id = 'typingIndicator';
-        
-        for (let i = 0; i < 3; i++) {
-            const dot = document.createElement('div');
-            dot.className = 'typing-dot';
-            typingDiv.appendChild(dot);
-        }
-        
-        messagesContainer.appendChild(typingDiv);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
-    
-    hideTypingIndicator() {
-        const indicator = document.getElementById('typingIndicator');
-        if (indicator) {
-            indicator.remove();
-        }
-    }
-    
-    generateResponse(message) {
-        const lowerMessage = message.toLowerCase().trim();
-        
-        // Önce tam eşleşme ara
-        if (this.responses[lowerMessage]) {
-            return this.responses[lowerMessage];
-        }
-        
-        // Kısmi eşleşme ara
-        for (const key in this.responses) {
-            if (lowerMessage.includes(key)) {
-                return this.responses[key];
-            }
-        }
-        
-        // Varsayılan yanıtlar
-        const defaultResponses = [
-            'Anlayamadım, ancak size yardımcı olmaya çalışayım. "Yardım" yazarak neler yapabileceğimi öğrenebilirsiniz.',
-            'Bu konuda bilgim yok, ancak voleybol ile ilgili başka sorularınızı yanıtlayabilirim.',
-            'Sorunuzu anlayamadım. Lütfen daha açık bir şekilde sorabilir misiniz? Voleybol hakkında sorular sorabilirsiniz.',
-            'Bu konuda size yardımcı olamıyorum, ancak maçlar, takımlar ve haberler hakkında bilgi verebilirim.'
-        ];
-        
-        return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
-    }
-    
-    addWelcomeMessage() {
-        // İlk mesaj zaten HTML'de var, bu fonksiyon gelecekte kullanılabilir
-    }
+        /* Feedback butonları için stil */
+.message-feedback {
+    margin-top: 8px;
+    display: flex;
+    gap: 5px;
 }
 
-// Chatbot'u başlat
-document.addEventListener('DOMContentLoaded', function() {
-    // Mevcut kodlar...
+.feedback-btn {
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s;
+}
+
+.feedback-btn:hover {
+    background: #e0e0e0;
+}
+
+/* AI avatar güncelleme */
+.message.bot .message-avatar {
+    background: linear-gradient(135deg, #006400, #050063);
+    color: white;
+}
+</style>
+
     
-    // Chatbot'u initialize et
-    new VolleyballChatbot();
-});
-</script>
-    </style>
+    
 </head>
 <body>
     <header>
@@ -1219,6 +1033,483 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert("Mesajınız başarıyla gönderildi! Teşekkür ederiz.");
             }
         });
+        class AIVolleyballChatbot {
+    constructor() {
+        this.isOpen = false;
+        this.conversationHistory = [];
+        this.userPreferences = {};
+        this.contextData = {
+            teams: ['VakıfBank', 'Eczacıbaşı Dynavit', 'Fenerbahçe', 'Galatasaray', 'Halkbank', 'Ziraat Bankkart'],
+            leagues: ['Sultanlar Ligi', 'Efeler Ligi'],
+            currentSeason: '2024-2025'
+        };
+        
+        this.aiResponses = {
+            // Gelişmiş yapay zeka yanıtları
+            greetings: [
+                'Merhaba! Ben Voleybol Türkiye\'nin yapay zeka asistanıyım. Size nasıl yardımcı olabilirim?',
+                'Selam! Voleybol dünyasından her şeyi bilirim. Hangi konuda bilgi almak istiyorsunuz?',
+                'Hoş geldiniz! Voleybol hakkında merak ettiğiniz her şeyi sorabilirsiniz.'
+            ],
+            
+            // Akıllı pattern matching için regex'ler
+            patterns: {
+                'maç|karşılaşma|oyun': this.getMatchInfo.bind(this),
+                'takım|kulüp|ekip': this.getTeamInfo.bind(this),
+                'skor|sonuç|puan': this.getScoreInfo.bind(this),
+                'haberleri?|yenilik|gelişme': this.getNewsInfo.bind(this),
+                'şampiyon|kazanan|birinci': this.getChampionInfo.bind(this),
+                'oyuncu|sporcu|atlet': this.getPlayerInfo.bind(this),
+                'fikstür|program|takvim': this.getFixtureInfo.bind(this),
+                'istatistik|analiz|veri': this.getStatistics.bind(this),
+                'nasıl|neden|ne zaman|nerede': this.getExplanation.bind(this),
+                'öneri|tavsiye|öner': this.getRecommendation.bind(this)
+            }
+        };
+        
+        this.initializeEventListeners();
+        this.initializeAI();
+    }
+    
+    initializeAI() {
+        // AI başlatma ve öğrenme
+        this.learningData = {
+            userQuestions: [],
+            successfulResponses: [],
+            userSatisfaction: []
+        };
+        
+        // Gelişmiş doğal dil işleme
+        this.nlp = {
+            stopWords: ['ve', 'veya', 'ile', 'için', 'hakkında', 'bu', 'şu', 'o'],
+            synonyms: {
+                'maç': ['karşılaşma', 'oyun', 'müsabaka'],
+                'takım': ['kulüp', 'ekip', 'takım'],
+                'kazanmak': ['galip gelmek', 'yenmek', 'başarılı olmak']
+            }
+        };
+    }
+    
+    initializeEventListeners() {
+        const toggle = document.getElementById('chatbotToggle');
+        const close = document.getElementById('chatbotClose');
+        const send = document.getElementById('chatbotSend');
+        const input = document.getElementById('chatbotInput');
+        
+        toggle.addEventListener('click', () => this.toggleChatbot());
+        close.addEventListener('click', () => this.closeChatbot());
+        send.addEventListener('click', () => this.sendMessage());
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                this.sendMessage();
+            }
+        });
+        
+        // Hızlı butonlar
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('quick-btn')) {
+                const message = e.target.getAttribute('data-message');
+                this.sendMessage(message);
+            }
+        });
+        
+        // Feedback butonları
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('feedback-btn')) {
+                this.handleFeedback(e.target);
+            }
+        });
+    }
+    
+    // Gelişmiş mesaj analizi
+    analyzeMessage(message) {
+        const lowerMessage = message.toLowerCase().trim();
+        
+        // Kullanıcı niyetini tespit et
+        const intent = this.detectIntent(lowerMessage);
+        
+        // Anahtar kelimeleri çıkar
+        const keywords = this.extractKeywords(lowerMessage);
+        
+        // Bağlamı analiz et
+        const context = this.analyzeContext(lowerMessage, keywords);
+        
+        return {
+            original: message,
+            processed: lowerMessage,
+            intent: intent,
+            keywords: keywords,
+            context: context,
+            sentiment: this.analyzeSentiment(lowerMessage)
+        };
+    }
+    
+    detectIntent(message) {
+        const intents = {
+            'greeting': /^(merhaba|selam|hey|hi|iyi günler)/,
+            'question': /(ne|nası[lı]|kim|hangi|nerede|ne zaman|neden)/,
+            'request': /(göster|anlat|bilgi ver|öğren|bul)/,
+            'complaint': /(kötü|berbat|çok kötü|beğenmedim)/,
+            'compliment': /(güzel|harika|mükemmel|teşekkür)/,
+            'goodbye': /(görüşürüz|hoşça kal|bye|güle güle)/
+        };
+        
+        for (const [intent, pattern] of Object.entries(intents)) {
+            if (pattern.test(message)) {
+                return intent;
+            }
+        }
+        return 'general';
+    }
+    
+    extractKeywords(message) {
+        const words = message.split(' ').filter(word => 
+            word.length > 2 && !this.nlp.stopWords.includes(word)
+        );
+        
+        // Voleybol terimleriyle eşleştir
+        const volleyballTerms = [];
+        words.forEach(word => {
+            if (this.contextData.teams.some(team => 
+                team.toLowerCase().includes(word) || word.includes(team.toLowerCase())
+            )) {
+                volleyballTerms.push(word);
+            }
+        });
+        
+        return {
+            all: words,
+            volleyball: volleyballTerms,
+            main: words.slice(0, 3) // İlk 3 anahtar kelime
+        };
+    }
+    
+    analyzeContext(message, keywords) {
+        const context = {
+            isAboutMatch: /maç|karşılaşma|oyun|müsabaka/.test(message),
+            isAboutTeam: /takım|kulüp|ekip/.test(message),
+            isAboutPlayer: /oyuncu|sporcu|atlet/.test(message),
+            isAboutNews: /haber|yeni|gelişme/.test(message),
+            timeReference: this.extractTimeReference(message)
+        };
+        
+        return context;
+    }
+    
+    extractTimeReference(message) {
+        const timePatterns = {
+            'today': /bugün|bu gün/,
+            'tomorrow': /yarın/,
+            'week': /hafta|gelecek hafta/,
+            'past': /geçen|önceki|dün/
+        };
+        
+        for (const [time, pattern] of Object.entries(timePatterns)) {
+            if (pattern.test(message)) {
+                return time;
+            }
+        }
+        return 'general';
+    }
+    
+    analyzeSentiment(message) {
+        const positiveWords = ['güzel', 'harika', 'mükemmel', 'teşekkür', 'beğendim'];
+        const negativeWords = ['kötü', 'berbat', 'beğenmedim', 'sorun'];
+        
+        let sentiment = 0;
+        positiveWords.forEach(word => {
+            if (message.includes(word)) sentiment += 1;
+        });
+        negativeWords.forEach(word => {
+            if (message.includes(word)) sentiment -= 1;
+        });
+        
+        if (sentiment > 0) return 'positive';
+        if (sentiment < 0) return 'negative';
+        return 'neutral';
+    }
+    
+    // Gelişmiş yanıt üretimi
+    generateIntelligentResponse(analysis) {
+        // Konuşma geçmişini kontrol et
+        const recentContext = this.getRecentContext();
+        
+        // Pattern matching ile uygun yanıt fonksiyonunu bul
+        for (const [pattern, handler] of Object.entries(this.aiResponses.patterns)) {
+            if (new RegExp(pattern, 'i').test(analysis.processed)) {
+                return handler(analysis, recentContext);
+            }
+        }
+        
+        // Intent tabanlı yanıt
+        return this.generateIntentBasedResponse(analysis);
+    }
+    
+    getRecentContext() {
+        return this.conversationHistory.slice(-3).map(item => ({
+            message: item.message,
+            response: item.response,
+            timestamp: item.timestamp
+        }));
+    }
+    
+    generateIntentBasedResponse(analysis) {
+        switch(analysis.intent) {
+            case 'greeting':
+                return this.aiResponses.greetings[Math.floor(Math.random() * this.aiResponses.greetings.length)];
+            
+            case 'question':
+                return this.handleQuestion(analysis);
+                
+            case 'compliment':
+                return 'Çok teşekkür ederim! Size daha iyi hizmet verebilmek için sürekli öğrenmeye devam ediyorum. 😊';
+                
+            case 'complaint':
+                return 'Üzgünüm, beklentilerinizi karşılayamadım. Lütfen sorunuzu daha detaylı belirtirseniz size daha iyi yardımcı olabilirim.';
+                
+            case 'goodbye':
+                return 'Görüşmek üzere! Voleybol dünyasından haberdar olmak için tekrar beklerim. 🏐';
+                
+            default:
+                return this.generateContextualResponse(analysis);
+        }
+    }
+    
+    handleQuestion(analysis) {
+        if (analysis.context.isAboutMatch) {
+            return this.getMatchInfo(analysis);
+        } else if (analysis.context.isAboutTeam) {
+            return this.getTeamInfo(analysis);
+        } else {
+            return 'Bu konuda size yardımcı olabilmek için sorunuzu biraz daha detaylandırabilir misiniz?';
+        }
+    }
+    
+    // Spesifik bilgi fonksiyonları
+    getMatchInfo(analysis, context) {
+        const responses = [
+            `📅 Bugün oynanacak maçlar:\n• VakıfBank vs Eczacıbaşı Dynavit (19:00)\n• Halkbank vs Ziraat Bankkart (17:30)\n\nDetaylı bilgi için "fikstür" sekmesini ziyaret edebilirsiniz.`,
+            `🏐 Yaklaşan önemli maçlar:\n• 22 Mart: Fenerbahçe vs Galatasaray\n• 25 Mart: Şampiyonlar Ligi yarı final\n\nHangi takımı destekliyorsunuz?`
+        ];
+        
+        if (analysis.context.timeReference === 'today') {
+            return responses[0];
+        }
+        
+        return responses[Math.floor(Math.random() * responses.length)];
+    }
+    
+    getTeamInfo(analysis, context) {
+        const teamKeywords = analysis.keywords.volleyball;
+        
+        if (teamKeywords.length > 0) {
+            const team = teamKeywords[0];
+            return `${team} hakkında bilgi: Bu takım Türk voleybolunun köklü kulüplerinden biri. Daha detaylı bilgi için "Takımlar" sekmesini ziyaret edebilirsiniz. Başka hangi takımı merak ediyorsunuz?`;
+        }
+        
+        return `🏐 Türkiye'nin en başarılı voleybol takımları:\n• VakıfBank (Sultanlar Ligi)\n• Fenerbahçe (Sultanlar & Efeler Ligi)\n• Eczacıbaşı Dynavit\n• Halkbank (Efeler Ligi)\n\nHangi takım hakkında bilgi almak istiyorsunuz?`;
+    }
+    
+    getNewsInfo(analysis, context) {
+        return `📰 Son voleybol haberleri:\n• VakıfBank Şampiyonlar Ligi yarı finalinde!\n• Eczacıbaşı Dynavit antrenör değişikliği\n• Fenerbahçe'den önemli transfer\n\nDaha fazla haber için "Haberler" sekmesini inceleyebilirsiniz.`;
+    }
+    
+    getChampionInfo(analysis, context) {
+        return `🏆 Son şampiyonlar:\n• Sultanlar Ligi 2024: Fenerbahçe Opet\n• Efeler Ligi 2024: Halkbank\n• CEV Şampiyonlar Ligi 2024: A. Carraro Imoco Volley\n\nDetaylı şampiyon listesi için "Şampiyonlar" sekmesini ziyaret edin.`;
+    }
+    
+    getPlayerInfo(analysis, context) {
+        return `⭐ Türk voleybolunun yıldızları hakkında bilgi almak ister misiniz? Hangi oyuncu veya pozisyon hakkında bilgi istiyorsunuz?\n\n🏐 Popüler oyuncular için takım sayfalarımızı ziyaret edebilirsiniz.`;
+    }
+    
+    getFixtureInfo(analysis, context) {
+        return `📅 Voleybol fikstürü:\n• Bugün: 2 önemli maç var\n• Bu hafta: 5 karşılaşma planlanmış\n• Şampiyonlar Ligi maçları yaklaşıyor\n\nDetaylı fikstür için "Fikstür" sekmesini kontrol edin.`;
+    }
+    
+    getStatistics(analysis, context) {
+        return `📊 Voleybol istatistikleri:\n• Bu sezon 150+ maç oynandı\n• En çok galibiyet: VakıfBank\n• En yüksek skor ortalaması hesaplanıyor\n\nDetaylı analizler için takım sayfalarını ziyaret edin.`;
+    }
+    
+    getExplanation(analysis, context) {
+        if (analysis.processed.includes('voleybol')) {
+            return `🏐 Voleybol hakkında:\nVoleybol, 6 kişilik iki takımın ağın iki yanında oynadığı bir spordur. Türkiye'de özellikle kadın voleybolunda çok başarılıyız!\n\nDaha spesifik bir konu hakkında bilgi almak ister misiniz?`;
+        }
+        return `Bu konuda size nasıl yardımcı olabilirim? Lütfen sorunuzu daha açık belirtir misiniz?`;
+    }
+    
+    getRecommendation(analysis, context) {
+        const recommendations = [
+            `🎯 Size önerim: Bu akşamki VakıfBank maçını kaçırmayın! Şampiyonlar Ligi için çok önemli.`,
+            `📺 Tavsiye: Sultanlar Ligi maçlarını takip edin, Türk voleybolunun en üst seviyesini göreceksiniz.`,
+            `🏐 Öneri: Yerel voleybol kulübünüze katılmayı düşünün, bu harika bir spor!`
+        ];
+        
+        return recommendations[Math.floor(Math.random() * recommendations.length)];
+    }
+    
+    generateContextualResponse(analysis) {
+        // Daha akıllı varsayılan yanıtlar
+        const smartDefaults = [
+            `İlginç bir soru! Voleybol hakkında daha spesifik bilgi almak ister misiniz? Örneğin takımlar, maçlar veya haberler...`,
+            `Bu konuda size yardımcı olmaya çalışayım. Hangi voleybol konusu sizi daha çok ilgilendiriyor?`,
+            `Voleybol dünyasından birçok konuda bilgim var. Sorunuzu biraz daha detaylandırabilir misiniz?`
+        ];
+        
+        return smartDefaults[Math.floor(Math.random() * smartDefaults.length)];
+    }
+    
+    // Ana mesaj gönderme fonksiyonu
+    sendMessage(customMessage = null) {
+        const input = document.getElementById('chatbotInput');
+        const message = customMessage || input.value.trim();
+        
+        if (!message) return;
+        
+        // Mesajı ekle
+        this.addMessage(message, 'user');
+        
+        if (!customMessage) {
+            input.value = '';
+        }
+        
+        // Yazma göstergesi
+        this.showTypingIndicator();
+        
+        // AI analizi ve yanıt üretimi
+        setTimeout(() => {
+            this.hideTypingIndicator();
+            
+            const analysis = this.analyzeMessage(message);
+            const response = this.generateIntelligentResponse(analysis);
+            
+            this.addMessage(response, 'bot');
+            
+            // Konuşma geçmişine ekle
+            this.conversationHistory.push({
+                message: message,
+                response: response,
+                analysis: analysis,
+                timestamp: new Date()
+            });
+            
+            // Öğrenme verilerini güncelle
+            this.updateLearning(message, response, analysis);
+            
+        }, 800 + Math.random() * 1200);
+    }
+    
+    updateLearning(message, response, analysis) {
+        this.learningData.userQuestions.push({
+            question: message,
+            intent: analysis.intent,
+            keywords: analysis.keywords,
+            timestamp: new Date()
+        });
+        
+        // Kullanıcı tercihlerini öğren
+        if (analysis.keywords.volleyball.length > 0) {
+            const team = analysis.keywords.volleyball[0];
+            this.userPreferences.favoriteTeams = this.userPreferences.favoriteTeams || [];
+            if (!this.userPreferences.favoriteTeams.includes(team)) {
+                this.userPreferences.favoriteTeams.push(team);
+            }
+        }
+    }
+    
+    addMessage(text, sender) {
+        const messagesContainer = document.getElementById('chatbotMessages');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${sender}`;
+        
+        const avatar = document.createElement('div');
+        avatar.className = 'message-avatar';
+        avatar.textContent = sender === 'bot' ? '🤖' : '👤';
+        
+        const content = document.createElement('div');
+        content.className = 'message-content';
+        content.innerHTML = text.replace(/\n/g, '<br>');
+        
+        messageDiv.appendChild(avatar);
+        messageDiv.appendChild(content);
+        
+        // Bot mesajına feedback butonları ekle
+        if (sender === 'bot') {
+            const feedbackDiv = document.createElement('div');
+            feedbackDiv.className = 'message-feedback';
+            feedbackDiv.innerHTML = `
+                <button class="feedback-btn" data-feedback="helpful">👍</button>
+                <button class="feedback-btn" data-feedback="not-helpful">👎</button>
+            `;
+            messageDiv.appendChild(feedbackDiv);
+        }
+        
+        messagesContainer.appendChild(messageDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+    
+    handleFeedback(button) {
+        const feedback = button.getAttribute('data-feedback');
+        const messageDiv = button.closest('.message');
+        
+        // Feedback'i kaydet
+        this.learningData.userSatisfaction.push({
+            feedback: feedback,
+            timestamp: new Date()
+        });
+        
+        // Visual feedback
+        button.style.background = feedback === 'helpful' ? '#4CAF50' : '#f44336';
+        button.style.color = 'white';
+        
+        // Teşekkür mesajı
+        if (feedback === 'helpful') {
+            this.addMessage('Teşekkürler! Geri bildiriminiz benim öğrenmeme yardımcı oluyor. 😊', 'bot');
+        } else {
+            this.addMessage('Üzgünüm, daha iyi olmaya çalışacağım. Başka nasıl yardımcı olabilirim?', 'bot');
+        }
+    }
+    
+    showTypingIndicator() {
+        const messagesContainer = document.getElementById('chatbotMessages');
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'typing-indicator';
+        typingDiv.id = 'typingIndicator';
+        
+        for (let i = 0; i < 3; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'typing-dot';
+            typingDiv.appendChild(dot);
+        }
+        
+        messagesContainer.appendChild(typingDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+    
+    hideTypingIndicator() {
+        const indicator = document.getElementById('typingIndicator');
+        if (indicator) {
+            indicator.remove();
+        }
+    }
+    
+    toggleChatbot() {
+        const window = document.getElementById('chatbotWindow');
+        this.isOpen = !this.isOpen;
+        
+        if (this.isOpen) {
+            window.style.display = 'flex';
+            document.getElementById('chatbotInput').focus();
+        } else {
+            window.style.display = 'none';
+        }
+    }
+    
+    closeChatbot() {
+        const window = document.getElementById('chatbotWindow');
+        window.style.display = 'none';
+        this.isOpen = false;
+    }
+}
     </script>
 </body>
 </html>
