@@ -1018,11 +1018,9 @@
                 // Başarı durumunu bildir
                 alert("Mesajınız başarıyla gönderildi! Teşekkür ederiz.");
             }
-   // GERÇEK AI CHATBOT ENTEGRASYONU
-// Bu kodu mevcut JavaScript kodunuzun içine ekleyin
 
-// OpenAI API ile entegrasyon
-async function getRealAIResponse(message) {
+
+async function getGeminiAIResponse(message) {
     const API_KEY = 'curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=GEMINI_API_KEY" \
   -H 'Content-Type: application/json' \
   -X POST \
@@ -1036,44 +1034,7 @@ async function getRealAIResponse(message) {
         ]
       }
     ]
-  }''; // Buraya API anahtarınızı yazın
-    
-    try {
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${API_KEY}`
-            },
-            body: JSON.stringify({
-                model: "gpt-3.5-turbo",
-                messages: [
-                    {
-                        role: "system",
-                        content: "Sen bir voleybol uzmanı AI asistansın. Türkçe yanıt ver. Voleybol, spor ve genel konularda yardımcı ol."
-                    },
-                    {
-                        role: "user",
-                        content: message
-                    }
-                ],
-                max_tokens: 500,
-                temperature: 0.7
-            })
-        });
-
-        const data = await response.json();
-        return data.choices[0].message.content;
-        
-    } catch (error) {
-        console.error('AI API Hatası:', error);
-        return 'Üzgünüm, şu anda AI sistemimde bir sorun var. Lütfen daha sonra tekrar deneyin.';
-    }
-}
-
-// Gemini AI ile alternatif entegrasyon
-async function getGeminiAIResponse(message) {
-    const API_KEY = 'YOUR_GEMINI_API_KEY'; // Buraya Gemini API anahtarınızı yazın
+  };
     
     try {
         const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`, {
@@ -1127,32 +1088,6 @@ function sendMessage() {
         });
 }
 
-// Hugging Face AI ile ücretsiz alternatif
-async function getHuggingFaceAIResponse(message) {
-    try {
-        const response = await fetch('https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium', {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer YOUR_HF_TOKEN', // Hugging Face token
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                inputs: message,
-                parameters: {
-                    max_length: 200,
-                    temperature: 0.7
-                }
-            })
-        });
-
-        const data = await response.json();
-        return data.generated_text || 'AI yanıtı alınamadı.';
-        
-    } catch (error) {
-        console.error('Hugging Face AI Hatası:', error);
-        return 'AI servisi şu anda kullanılamıyor.';
-    }
-}
         });
    
     </script>
