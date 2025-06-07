@@ -296,7 +296,152 @@
         .social-icon:hover {
             transform: scale(1.2)
     }
+/* AI Chatbot Stilleri */
+.ai-chat-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
+    overflow: hidden;
 }
+
+.ai-chat-header {
+    background: #050063;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ai-chat-title {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.ai-chat-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+    width: 25px;
+    height: 25px;
+}
+
+.ai-chat-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background: #f9f9f9;
+}
+
+.ai-message {
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.ai-message.user {
+    background: #050063;
+    color: white;
+    margin-left: auto;
+    text-align: right;
+}
+
+.ai-message.bot {
+    background: white;
+    color: #333;
+    border: 1px solid #eee;
+}
+
+.ai-chat-input-container {
+    padding: 15px;
+    border-top: 1px solid #eee;
+    background: white;
+}
+
+.ai-chat-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.ai-chat-send {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    background: #050063;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.ai-chat-send:hover {
+    background: #0a0a7a;
+}
+
+.ai-chat-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background: #050063;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ai-chat-toggle:hover {
+    background: #0a0a7a;
+    transform: scale(1.1);
+}
+
+.ai-typing {
+    display: none;
+    color: #666;
+    font-style: italic;
+    padding: 10px 15px;
+}
+
+@media (max-width: 768px) {
+    .ai-chat-container {
+        width: 90%;
+        height: 70%;
+        bottom: 10px;
+        right: 5%;
+    }
+    
+    .ai-chat-toggle {
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
+        
 </style>
 
     
@@ -622,7 +767,27 @@
         <p>&copy; 2025 Voleybol Türkiye. Tüm hakları saklıdır.</p>
         <p>Bu sitedeki bilgiler bilgilendirme amaçlıdır. Resmi sonuçlar için lütfen TVF'nin resmi sitesini ziyaret ediniz.</p>
     </footer>
+    <button class="ai-chat-toggle" id="aiChatToggle">🤖</button>
+
+<div class="ai-chat-container" id="aiChatContainer">
+    <div class="ai-chat-header">
+        <span class="ai-chat-title">Voleybol Asistanı</span>
+        <button class="ai-chat-close" id="aiChatClose">×</button>
+    </div>
     
+    <div class="ai-chat-messages" id="aiChatMessages">
+        <div class="ai-message bot">
+            Merhaba! Ben voleybol asistanınızım. Voleybol, takımlar, maçlar ve diğer konularda size yardımcı olabilirim. Ne öğrenmek istiyorsunuz?
+        </div>
+    </div>
+    
+    <div class="ai-typing" id="aiTyping">Yazıyor...</div>
+    
+    <div class="ai-chat-input-container">
+        <input type="text" class="ai-chat-input" id="aiChatInput" placeholder="Mesajınızı yazın...">
+        <button class="ai-chat-send" id="aiChatSend">Gönder</button>
+    </div>
+</div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Tab değiştirme fonksiyonu
@@ -725,6 +890,153 @@
                 // Başarı durumunu bildir
                 alert("Mesajınız başarıyla gönderildi! Teşekkür ederiz.");
             }
+            // AI Chatbot Fonksiyonları
+const aiChatToggle = document.getElementById('aiChatToggle');
+const aiChatContainer = document.getElementById('aiChatContainer');
+const aiChatClose = document.getElementById('aiChatClose');
+const aiChatMessages = document.getElementById('aiChatMessages');
+const aiChatInput = document.getElementById('aiChatInput');
+const aiChatSend = document.getElementById('aiChatSend');
+const aiTyping = document.getElementById('aiTyping');
+
+// Chatbot açma/kapama
+aiChatToggle.addEventListener('click', function() {
+    aiChatContainer.style.display = aiChatContainer.style.display === 'flex' ? 'none' : 'flex';
+    aiChatToggle.style.display = aiChatContainer.style.display === 'flex' ? 'none' : 'flex';
+});
+
+aiChatClose.addEventListener('click', function() {
+    aiChatContainer.style.display = 'none';
+    aiChatToggle.style.display = 'flex';
+});
+
+// Mesaj gönderme
+aiChatSend.addEventListener('click', sendMessage);
+aiChatInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        sendMessage();
+    }
+});
+
+function sendMessage() {
+    const message = aiChatInput.value.trim();
+    if (!message) return;
+    
+    // Kullanıcı mesajını ekle
+    addMessage(message, 'user');
+    aiChatInput.value = '';
+    
+    // Bot yanıtını simüle et
+    showTyping();
+    setTimeout(() => {
+        hideTyping();
+        const response = getAIResponse(message);
+        addMessage(response, 'bot');
+    }, 1000 + Math.random() * 2000);
+}
+
+function addMessage(message, sender) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `ai-message ${sender}`;
+    messageDiv.textContent = message;
+    aiChatMessages.appendChild(messageDiv);
+    aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+}
+
+function showTyping() {
+    aiTyping.style.display = 'block';
+    aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+}
+
+function hideTyping() {
+    aiTyping.style.display = 'none';
+}
+
+// AI Yanıt Sistemi
+function getAIResponse(message) {
+    const lowerMessage = message.toLowerCase();
+    
+    // Voleybol kuralları
+    if (lowerMessage.includes('kural') || lowerMessage.includes('nasıl oynanır')) {
+        return 'Voleybol 6 kişilik iki takımla oynanır. Topu karşı sahaya düşürmek ve kendi sahanızda düşürmemek amaçtır. Her takım topa en fazla 3 kez dokunabilir.';
+    }
+    
+    // Takımlar hakkında
+    if (lowerMessage.includes('vakıfbank') || lowerMessage.includes('vakıf')) {
+        return 'VakıfBank, Türkiye\'nin en başarılı voleybol takımlarından biridir. Şampiyonlar Ligi\'nde de önemli başarılar elde etmiştir.';
+    }
+    
+    if (lowerMessage.includes('fenerbahçe') || lowerMessage.includes('fener')) {
+        return 'Fenerbahçe, hem kadın hem erkek voleybol takımlarıyla Türk voleybolunun önemli temsilcilerindendir. Son yıllarda büyük başarılar elde etmiştir.';
+    }
+    
+    if (lowerMessage.includes('eczacıbaşı')) {
+        return 'Eczacıbaşı Dynavit, Sultanlar Ligi\'nin köklü takımlarından biridir. Güçlü kadrosuyla her sezon şampiyonluk için mücadele eder.';
+    }
+    
+    if (lowerMessage.includes('galatasaray')) {
+        return 'Galatasaray, hem kadın hem erkek voleybol takımlarıyla Türk voleyboluna katkıda bulunmaktadır.';
+    }
+    
+    if (lowerMessage.includes('halkbank')) {
+        return 'Halkbank, Efeler Ligi\'nin güçlü takımlarından biridir. Erkek voleybolunda önemli başarılar elde etmiştir.';
+    }
+    
+    // Liglerle ilgili
+    if (lowerMessage.includes('sultanlar ligi') || lowerMessage.includes('sultanlar')) {
+        return 'Sultanlar Ligi, Türkiye\'nin kadın voleybol liginin adıdır. VakıfBank, Fenerbahçe, Eczacıbaşı gibi güçlü takımlar bu ligde mücadele eder.';
+    }
+    
+    if (lowerMessage.includes('efeler ligi') || lowerMessage.includes('efeler')) {
+        return 'Efeler Ligi, Türkiye\'nin erkek voleybol liginin adıdır. Halkbank, Fenerbahçe, Galatasaray gibi takımlar bu ligde yer alır.';
+    }
+    
+    // Maç sonuçları
+    if (lowerMessage.includes('maç') || lowerMessage.includes('sonuç') || lowerMessage.includes('skor')) {
+        return 'Güncel maç sonuçları için ana sayfadaki "Son Haberler" bölümünü kontrol edebilirsiniz. Ayrıca Fikstür sekmesinden gelecek maçları görebilirsiniz.';
+    }
+    
+    // Şampiyonlar
+    if (lowerMessage.includes('şampiyon') || lowerMessage.includes('kazanan')) {
+        return '2024 sezonunda Sultanlar Ligi\'ni Fenerbahçe Opet, Efeler Ligi\'ni ise Halkbank kazanmıştır. Detaylı bilgi için Şampiyonlar sekmesini ziyaret edebilirsiniz.';
+    }
+    
+    // Milli takım
+    if (lowerMessage.includes('milli takım') || lowerMessage.includes('filenin sultanları') || lowerMessage.includes('türkiye')) {
+        return 'Filenin Sultanları (Kadın Milli Takım) ve Erkek Milli Takımımız uluslararası müsabakalarda Türkiye\'yi temsil eder. Dünya şampiyonası elemelerine katılacaklar.';
+    }
+    
+    // Pozisyonlar
+    if (lowerMessage.includes('pozisyon') || lowerMessage.includes('mevki')) {
+        return 'Voleybolda temel pozisyonlar: Pasör (Setter), Smaçör (Outside Hitter), Orta Oyuncu (Middle Blocker), Çapraz (Opposite), Libero. Her pozisyonun kendine özgü görevleri vardır.';
+    }
+    
+    // Genel yardım
+    if (lowerMessage.includes('yardım') || lowerMessage.includes('ne sorabilir')) {
+        return 'Size voleybol kuralları, takımlar, maç sonuçları, şampiyonlar, milli takım ve voleybol hakkında genel bilgiler konusunda yardımcı olabilirim. Ne merak ediyorsunuz?';
+    }
+    
+    // Selamlama
+    if (lowerMessage.includes('merhaba') || lowerMessage.includes('selam') || lowerMessage.includes('hey')) {
+        return 'Merhaba! Voleybol dünyasına hoş geldiniz. Size nasıl yardımcı olabilirim?';
+    }
+    
+    // Teşekkür
+    if (lowerMessage.includes('teşekkür') || lowerMessage.includes('sağol') || lowerMessage.includes('thanks')) {
+        return 'Rica ederim! Başka sorularınız varsa çekinmeden sorabilirsiniz.';
+    }
+    
+    // Varsayılan yanıt
+    const defaultResponses = [
+        'Bu konuda size yardımcı olmaya çalışayım. Biraz daha detaylı sorabilir misiniz?',
+        'Voleybol hakkında başka bir şey sormak ister misiniz? Takımlar, kurallar, maçlar gibi konularda size yardımcı olabilirim.',
+        'Üzgünüm, bu konuda yeterli bilgim yok. Voleybol, takımlar veya maçlarla ilgili başka bir şey sorabilirsiniz.',
+        'Size daha iyi yardımcı olabilmek için sorunuzu biraz daha açık sorabilir misiniz?'
+    ];
+    
+    return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+}
+
         });
    
     </script>
